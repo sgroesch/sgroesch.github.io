@@ -8,16 +8,11 @@ I recently graduated from Iowa State University with a BS in Economics and I am 
 
 This is my brother Andy and I from our trip to Ibiza, Spain last year.
 
-[LinkedIn](https://www.linkedin.com/pub/samuel-groesch/74/390/3b6)
+##### Here are some of my social media profiles:
+- [LinkedIn](https://www.linkedin.com/pub/samuel-groesch/74/390/3b6)
+- [Facebook](https://www.facebook.com/sam.groesch)
 
-[Facebook](https://www.facebook.com/sam.groesch)
-
-##### These are some of my favorite foods:
-- Pizza
-- Seafood
-- Cow
-
-##### These are my favorite professional sports teams
+##### My favorite sports teams' logos
 1. ![Chicago Bulls](http://content.sportslogos.net/logos/6/221/thumbs/zdrycpc7mh5teihl10gko8sgf.gif)
 2. ![Chicago Bears](http://content.sportslogos.net/logos/7/169/thumbs/364.gif)
 3. ![Chicago White Sox](http://content.sportslogos.net/logos/53/55/thumbs/oxvkprv7v4inf5dgqdebp0yse.gif)
