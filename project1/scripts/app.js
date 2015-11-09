@@ -18,7 +18,7 @@ window.onload = function() {
 
 
 // Make Deck and deal cards
-
+var deckOfCards = [ ];
 function makeDeck() {
   for (var i = 0; i < 24; i++) {
       deckOfCards[i]= { };
@@ -52,79 +52,11 @@ function shuffle() {
 
 // Function to show background of card
 
-var setImage = function(cardObject) {
-  return 'cards/' + cardObject.rank + '_of_' + cardObject.suit + '.png';
+function setImage(cardObject) {
+  return 'styles/cards/' + cardObject.rank + '_of_' + cardObject.suit + '.png';
 }
 
-
-var setBackground = function(curPlace, cardObject) {
+function setBackground(currentMove, cardObject) {
   var imgUrl = setImage(cardObject);
-  $('#game').append('<canvas class="card" background:'+imgUrl+'><canvas>')
+  $('#player'+currentMove+'GameArea').append('<img class="card" src='+imgUrl+'></img>')
 }
-
-
-
-// var setCardImage = function(cardObject) {
-//   switch (cardObject.suit) {
-//       case 'Hearts': switch (cardObject.rank) {
-//                         case 'Ace':
-//                             break;
-//                         case 'King':
-//                             break;
-//                         case 'Queen':
-//                             break;
-//                         case 'Jack':
-//                             break;
-//                         case 'Ten':
-//                             break;
-//                         case 'Nine':
-//                             break;
-//                         default:
-//                       }
-//       case 'Spades': switch (cardObject.rank) {
-//                         case 'Ace':
-//                             break;
-//                         case 'King':
-//                             break;
-//                         case 'Queen':
-//                             break;
-//                         case 'Jack':
-//                             break;
-//                         case 'Ten':
-//                             break;
-//                         case 'Nine':
-//                             break;
-//                         default:
-//                                       }
-//       case 'Clubs': switch (cardObject.rank) {
-//                         case 'Ace':
-//                             break;
-//                         case 'King':
-//                             break;
-//                         case 'Queen':
-//                             break;
-//                         case 'Jack':
-//                             break;
-//                         case 'Ten':
-//                             break;
-//                         case 'Nine':
-//                             break;
-//                             default:
-//                         }
-//       case 'Diamonds': switch (cardObject.rank) {
-//                         case 'Ace':
-//                             break;
-//                         case 'King':
-//                             break;
-//                         case 'Queen':
-//                             break;
-//                         case 'Jack':
-//                             break;
-//                         case 'Ten':
-//                             break;
-//                         case 'Nine':
-//                             break;
-//                         default:
-//                         }
-//   }
-// }

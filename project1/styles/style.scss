@@ -4,14 +4,16 @@ body {
 }
 
 .card {
-  height: 726px;
-  width: 500px;
+  height: 78px;
+  width: 54px;
+  border: 2px solid black;
+  background: url('cards/9_of_clubs.png');
 }
 
 #game {
   border: 4px solid black;
   width: 90%;
-  height: 90%; //Change so it equals the width
+  height: 1000px; //Change so it equals the width
 }
 
 
