@@ -8,6 +8,7 @@ window.onload = function() {
 
 // Ask how many human and computer players and set number
 
+
 // Ask names for players and set. Set generic Computer names
 
 // Ask what teammate configuration is and set

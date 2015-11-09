@@ -1,6 +1,22 @@
+$player13height: 78px;
+$player13width: 300px;
+$player24height: 400px;
+$player24width: 54px;
+$playedcardwidth: 54px;
+$playedcardheight: 78px;
+
 
 body {
   font-size: 16px;
+  color: white;
+}
+
+#header {
+  color: black;
+}
+
+#pregame {
+  color: black;
 }
 
 .card {
@@ -13,8 +29,72 @@ body {
 #game {
   border: 4px solid black;
   width: 90%;
-  height: 1000px; //Change so it equals the width
+  height: 700px; //Change so it equals the width
+  background: rgb(25,77,30);
 }
+
+#trickArea {
+  border: 1px solid black;
+  margin-left: 40%;
+  margin-top: 10%;
+  float: left;
+}
+
+#player1PlayedCard {
+  border: 1px solid black;
+  height: $playedcardheight;
+  width: $playedcardwidth;
+  clear:both;
+  margin-left: $playedcardwidth;
+  margin-right: $playedcardwidth;
+}
+
+#player2PlayedCard {
+  border: 1px solid black;
+  height: $playedcardheight;
+  width: $playedcardwidth;
+  float: right;
+}
+
+#player3PlayedCard {
+  border: 1px solid black;
+  height: $playedcardheight;
+  width: $playedcardwidth;
+  margin-left: $playedcardwidth;
+  margin-right: $playedcardwidth;
+}
+
+#player4PlayedCard {
+  border: 1px solid black;
+  height: $playedcardheight;
+  width: $playedcardwidth;
+  float: left;
+}
+
+#player1GameArea {
+  border: 1px solid black;
+  height: $player13height;
+  clear: both;
+}
+
+#player2GameArea {
+  border: 1px solid black;
+  float: right;
+  height: $player24height;
+}
+
+#player3GameArea {
+  border: 1px solid black;
+  height: $player13height;
+}
+
+#player4GameArea {
+  border: 1px solid black;
+  float: left;
+  height: $player24height;
+}
+
+
 
 
 // @media {
