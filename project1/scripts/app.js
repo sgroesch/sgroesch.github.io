@@ -28,7 +28,9 @@ var teamTwoHandScore;
 var teamOneTotalScore;
 var teamTwoTotalScore;
 var trump;
+var oppositeTrump;
 var dealer;
+var goAlone;
 var dummy;
 var maker;
 
@@ -49,6 +51,12 @@ function makeDeck() {
     deckOfCards[k+12].rank = 'jack';
     deckOfCards[k+16].rank = '10';
     deckOfCards[k+20].rank = '9';
+    deckOfCards[k].rankNum = 6;
+    deckOfCards[k+4].rankNum = 5;
+    deckOfCards[k+8].rankNum = 4;
+    deckOfCards[k+12].rankNum = 3;
+    deckOfCards[k+16].rankNum = 2;
+    deckOfCards[k+20].rankNum = 1;
   }
   };
 makeDeck();
@@ -64,6 +72,12 @@ function shuffle() {
 
 function deal() {
       shuffle();
+      for (var i = 0; i < 5; i++) {
+        deck[i].cardOwner = 1;
+        deck[i+5].cardOwner = 2;
+        deck[i+10].cardOwner = 3;
+        deck[i+15].cardOwner = 4;
+      }
       handOne = [deckOfCards[0], deckOfCards[1], deckOfCards[2], deckOfCards[3], deckOfCards[4]];
       handTwo = [deckOfCards[5], deckOfCards[6], deckOfCards[7], deckOfCards[8], deckOfCards[9]];
       handThree = [deckOfCards[10], deckOfCards[11], deckOfCards[12], deckOfCards[13], deckOfCards[14]];
@@ -133,23 +147,55 @@ function setMaker(x) {
   }
 }
 
-function bidding(){
-  //Start with next person to shuffler
-  //bidPass or bidPickup
-  //bidChooseTrump and bid startOver hand
-}
-function bidPass(){
-  //Move whos turn to bid to next person
+function setTrump(trump) {
+  var oppositeTrump;
+  switch (trump) {
+    case 'hearts': oppositeTrump = 'diamonds';
+      break;
+    case 'diamonds': oppositeTrump = 'hearts';
+      break;
+    case 'spades': oppositeTrump = 'clubs';
+      break;
+    case 'clubs': oppositeTrump = 'spades';
+      break;
+    default: console.log('There was an error setting oppositeTrump');
+  }
+  for (var i = 0; i < 24; i++) {
+    if (deckOfCards[i].suit == trump && deckOfCards[i].rank == 'jack') {
+      deckOfCards[i].trump = true;
+      deckOfCards[i].rankNum = 8;
+    } else if (deckOfCards[i].suit == trump) {
+      deckOfCards[i].trump = true;
+    } else if (deckOfCards[i].suit == oppositeTrump && deckOfCards[i].rank == 'jack') {
+      deckOfCards[i].trump = true;
+      deckOfCards[i].rankNum = 7;
+    } else {
+      deckOfCards[i].trump = false;
+    }
 }
 
-function bidPickUp(x, y) {
-  //var x = user input
-  //var y = current player
-  //bidPickUp(x, y);
+function bidding(){
+  while (trump == '') {
+
+  }
+}
+function bidPass(){
+  if
+}
+
+function bidPickUp() {
   trump = pickUp.suit;
-  x = pickUp;
-  turn = y;
-  return x;
+  switch(dealer) {
+    case 1: //dealer switches card
+      break;
+    case 2:
+      break;
+    case 3:
+      break;
+    case 4:
+      break;
+    default: console.log('There was an error with bidPickUp');
+  }
 }
 
 // 4. Playing
@@ -161,6 +207,39 @@ function playHand() {
 function chooseCard(y) {
   // var y = user input;
   var x =
+}
+
+function checkHandWinner(currentWinningHand, newChallenger) {
+  if (currentWinningHand.trump == true && newChallenger.trump == false) {
+    currentWinningHand = currentWinningHand;
+    nextTurn(); // Figure out
+  } else if (currentWinningHand.trump == false && newChallenger.trump == true) {
+    currentWinningHand = newChallenger;
+    nextTurn(); // Figure out
+  } else if (currentWinningHand.trump == true && currentWinningHand.trump == true) {
+    checkHigherCard(currentWinningHand, newChallenger);
+  } else {
+    checkDealtSuit(currentWinningHand, newChallenger);
+  }
+}
+
+function checkDealtSuit(currentWinningHand, newChallenger) {
+  if (newChallenger.suit != firstDealtSuit){
+    currentWinningHand = currentWinningHand;
+    nextPlayer(); // Figure out
+  } else {
+    checkHigherCard(currentWinningHand, newChallenger);
+  }
+}
+
+function checkHigherCard(currentWinningHand, newChallenger) {
+  if (currentWinningHand.rankNum > newChallenger.rankNum) {
+    currentWinningHand = currentWinningHand;
+    // nextPlayer();
+  } else {
+    currentWinningHand = newChallenger;
+    // nextPlayer();
+  }
 }
 
 // 5. Keep Score and Declare winner
@@ -233,6 +312,9 @@ function resetHand() {
   dummy = 0;
   goAloneTeamOne = false;
   goAloneTeamTwo = false;
+  for (var i = 0; i < 24; i++) {
+    deckOfCards[i].cardOwner = 0;
+  }
 }
 
 function resetGame() {
