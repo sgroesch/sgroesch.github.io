@@ -58,23 +58,60 @@ body {
   height: 78px;
   clear: both; }
 
+#player1GameAreaName {
+  border: 1px solid black;
+  height: 16px;
+  clear: both; }
+
 #player2GameArea {
   border: 1px solid black;
   float: right;
+  clear: right;
   height: 400px; }
+
+#player2GameAreaName {
+  border: 1px solid black;
+  height: 16px;
+  float: right; }
+
+#player2GameArea img {
+  clear: both;
+  float: right; }
 
 #player3GameArea {
   border: 1px solid black;
   height: 78px; }
 
+#player3GameAreaName {
+  border: 1px solid black;
+  height: 16px;
+  float: left; }
+
 #player4GameArea {
   border: 1px solid black;
   float: left;
+  clear: both;
   height: 400px; }
+
+#player4GameAreaName {
+  border: 1px solid black;
+  height: 16px;
+  float: left; }
+
+#player4GameArea img {
+  clear: both;
+  float: left; }
+
+#messageBarTitle {
+  border: 1px solid black;
+  color: black;
+  width: 90%; }
 
 #messageBar {
   border: 1px solid black;
   clear: both;
-  height: 16px; }
+  height: 16px;
+  color: black;
+  width: 90%; }
 
 /*# sourceMappingURL=style.css.map */
