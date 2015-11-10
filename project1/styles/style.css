@@ -72,4 +72,9 @@ body {
   float: left;
   height: 400px; }
 
+#messageBar {
+  border: 1px solid black;
+  clear: both;
+  height: 16px; }
+
 /*# sourceMappingURL=style.css.map */
