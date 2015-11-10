@@ -74,7 +74,23 @@ body {
   height: 16px;
   float: right; }
 
-#player2GameArea img {
+#player2HandCard1 {
+  clear: both;
+  float: right; }
+
+#player2HandCard2 {
+  clear: both;
+  float: right; }
+
+#player2HandCard3 {
+  clear: both;
+  float: right; }
+
+#player2HandCard4 {
+  clear: both;
+  float: right; }
+
+#player2HandCard5 {
   clear: both;
   float: right; }
 
@@ -98,7 +114,23 @@ body {
   height: 16px;
   float: left; }
 
-#player4GameArea img {
+#player4HandCard1 {
+  clear: both;
+  float: left; }
+
+#player4HandCard2 {
+  clear: both;
+  float: left; }
+
+#player4HandCard3 {
+  clear: both;
+  float: left; }
+
+#player4HandCard4 {
+  clear: both;
+  float: left; }
+
+#player4HandCard5 {
   clear: both;
   float: left; }
 

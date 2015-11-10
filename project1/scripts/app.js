@@ -2,9 +2,6 @@ window.onload = function() {
   console.log('hey this worked');
   makeDeck();
   deal();
-  currentMove = 1;
-  $('#player'+currentMove+'GameArea:nth-child(1)').click(function(){
-    $('#player'+currentMove+'GameArea:nth-child(1)').appendTo('#player'+currentMove+'PlayedCard')});
 }
 
 
@@ -15,23 +12,25 @@ window.onload = function() {
 // Ask what teammate configuration is and set
 
 // Make Deck and deal cards
-var deckOfCards = [ ];
-var handOne = [];
-var handTwo = [];
-var handThree = [];
-var handFour = [];
+var deckOfCards = [];
+var player1 = {playerOrder: 1, hand: []};
+var player2 = {playerOrder: 2, hand: []};
+var player3 = {playerOrder: 3, hand: []};
+var player4 = {playerOrder: 4, hand: []};
 var teamOneHandScore;
 var teamTwoHandScore;
 var teamOneTotalScore;
 var teamTwoTotalScore;
 var trump;
 var oppositeTrump;
-var dealer;
 var goAloneTeamOne;
 var goAloneTeamTwo;
 var dummyTeamOne;
 var dummyTeamTwo;
 var maker;
+var currentMove = {playerOrder: null, hand: [null, null, null, null, null]};
+var dealer = 1;
+
 
 function makeDeck() {
   for (var i = 0; i < 24; i++) {
@@ -72,268 +71,322 @@ function deal() {
       shuffle();
       for (var i = 0; i < 5; i++) {
         deckOfCards[i].cardOwner = 1;
+        deckOfCards[i].cardOwnerOrder = i+1;
         deckOfCards[i+5].cardOwner = 2;
+        deckOfCards[i+5].cardOwnerOrder = i+1;
         deckOfCards[i+10].cardOwner = 3;
+        deckOfCards[i+10].cardOwnerOrder = i+1;
         deckOfCards[i+15].cardOwner = 4;
+        deckOfCards[i+15].cardOwnerOrder = i+1;
       }
-      handOne = [deckOfCards[0], deckOfCards[1], deckOfCards[2], deckOfCards[3], deckOfCards[4]];
-      for (var i = 0; i < handOne.length; i++) {
-        setBackground(1,handOne[i]);
+      player1.hand = [deckOfCards[0], deckOfCards[1], deckOfCards[2], deckOfCards[3], deckOfCards[4]];
+      for (var i = 0; i < player1.hand.length; i++) {
+        setBackground(player1, i);
       };
-      handTwo = [deckOfCards[5], deckOfCards[6], deckOfCards[7], deckOfCards[8], deckOfCards[9]];
-      for (var i = 0; i < handTwo.length; i++) {
-        setBackground(2,handTwo[i]);
+      player2.hand = [deckOfCards[5], deckOfCards[6], deckOfCards[7], deckOfCards[8], deckOfCards[9]];
+      for (var i = 0; i < player2.hand.length; i++) {
+        setBackground(player2, i);
       }
-      handThree = [deckOfCards[10], deckOfCards[11], deckOfCards[12], deckOfCards[13], deckOfCards[14]];
-      for (var i = 0; i < handThree.length; i++) {
-        setBackground(3,handThree[i]);
+      player3.hand = [deckOfCards[10], deckOfCards[11], deckOfCards[12], deckOfCards[13], deckOfCards[14]];
+      for (var i = 0; i < player3.hand.length; i++) {
+        setBackground(player3, i);
       }
-      handFour = [deckOfCards[15], deckOfCards[16], deckOfCards[17], deckOfCards[18], deckOfCards[19]];
+      player4.hand = [deckOfCards[15], deckOfCards[16], deckOfCards[17], deckOfCards[18], deckOfCards[19]];
+      for (var i = 0; i < player4.hand.length; i++) {
+        setBackground(player4, i);
+      }
       pickUp = deckOfCards[23];
-      for (var i = 0; i < handFour.length; i++) {
-        setBackground(4,handFour[i]);
-      }
 }
 
 // Function to show background of card
 
-function setImage(cardObject) {
-  return 'styles/cards/' + cardObject.rank + '_of_' + cardObject.suit + '.png';
+function setBackground(currentMove, whichCard) {
+  var imgUrl = 'styles/cards/' + currentMove.hand[whichCard].rank + '_of_' + currentMove.hand[whichCard].suit + '.png';
+  var soItWorks = whichCard + 1;
+  $('#player'+currentMove.playerOrder+'GameArea').append('<img class="card" id="player'+currentMove.playerOrder+'HandCard'+soItWorks+'" src='+imgUrl+'></img>');
 }
 
-function setBackground(currentMove, cardObject) {
-  var imgUrl = setImage(cardObject);
-  $('#player'+currentMove+'GameArea').append('<img class="card" src='+imgUrl+'></img>')
+Bidding: Pick up to set trump, pass,
+
+$('#player'+currentMove+'HandCard1').click(function(){
+  $('#player'+currentMove+'HandCard1').appendTo('#player'+currentMove+'PlayedCard')});
+function nextDealer() {
+  dealer = (dealer%4 + 1);
 }
+
+function nextTurn(){
+  currentMove = (currentMove%4 +1);
+  if (currentMove == dummy) {
+    currentMove = (currentMove%4 +1);
+  }
+}
+
+function setGoingAloneAndDummy(currentMove) {
+  switch (currentMove) {
+    case 1: goAloneTeamOne = true;
+            dummy = 3;
+      break;
+    case 2: goAloneTeamTwo = true;
+            dummy = 4;
+      break;
+    case 3: goAloneTeamOne = true;
+            dummy = 1;
+      break;
+    case 4: goAloneTeamTwo = true;
+            dummy = 2;
+      break;
+    default: console.log('Setting the goAlone function messed up');
+  }
+}
+
+function setMaker(currentMove) {
+  if (currentMove == 1 || currentMove == 3){
+    makerTeamOne = true;
+    makerTeamTwo = false;
+  } else if (currentMove == 2 || currentMove == 4){
+    makerTeamOne = false;
+    makerTeamTwo = true;
+  }
+}
+
+function setTrump(trump) {
+  var oppositeTrump;
+  switch (trump) {
+    case 'hearts': oppositeTrump = 'diamonds';
+      break;
+    case 'diamonds': oppositeTrump = 'hearts';
+      break;
+    case 'spades': oppositeTrump = 'clubs';
+      break;
+    case 'clubs': oppositeTrump = 'spades';
+      break;
+    default: console.log('There was an error setting oppositeTrump');
+  }
+  for (var i = 0; i < 24; i++) {
+    if (deckOfCards[i].suit == trump && deckOfCards[i].rank == 'jack') {
+      deckOfCards[i].trump = true;
+      deckOfCards[i].rankNum = 8;
+    } else if (deckOfCards[i].suit == trump) {
+      deckOfCards[i].trump = true;
+    } else if (deckOfCards[i].suit == oppositeTrump && deckOfCards[i].rank == 'jack') {
+      deckOfCards[i].trump = true;
+      deckOfCards[i].rankNum = 7;
+    } else {
+      deckOfCards[i].trump = false;
+    }
+  }
+}
+
+function bidding(){
+  while (trump == '') {
+
+  }
+}
+
+// function bidPass(){
 //
-// //Bidding: Pick up to set trump, pass,
-//
-// function nextDealer() {
-//   dealer = (dealer%4 + 1);
 // }
-//
-// function nextTurn(){
-//   currentMove = (currentMove%4 +1);
-//   if (currentMove == dummy) {
-//     currentMove = (currentMove%4 +1);
-//   }
-// }
-//
-// function setGoingAloneAndDummy(currentMove) {
-//   switch (currentMove) {
-//     case 1: goAloneTeamOne = true;
-//             dummy = 3;
-//       break;
-//     case 2: goAloneTeamTwo = true;
-//             dummy = 4;
-//       break;
-//     case 3: goAloneTeamOne = true;
-//             dummy = 1;
-//       break;
-//     case 4: goAloneTeamTwo = true;
-//             dummy = 2;
-//       break;
-//     default: console.log('Setting the goAlone function messed up');
-//   }
-// }
-//
-// function setMaker(currentMove) {
-//   if (currentMove == 1 || currentMove == 3){
-//     makerTeamOne = true;
-//     makerTeamTwo = false;
-//   } else if (currentMove == 2 || currentMove == 4){
-//     makerTeamOne = false;
-//     makerTeamTwo = true;
-//   }
-// }
-//
-// function setTrump(trump) {
-//   var oppositeTrump;
-//   switch (trump) {
-//     case 'hearts': oppositeTrump = 'diamonds';
-//       break;
-//     case 'diamonds': oppositeTrump = 'hearts';
-//       break;
-//     case 'spades': oppositeTrump = 'clubs';
-//       break;
-//     case 'clubs': oppositeTrump = 'spades';
-//       break;
-//     default: console.log('There was an error setting oppositeTrump');
-//   }
-//   for (var i = 0; i < 24; i++) {
-//     if (deckOfCards[i].suit == trump && deckOfCards[i].rank == 'jack') {
-//       deckOfCards[i].trump = true;
-//       deckOfCards[i].rankNum = 8;
-//     } else if (deckOfCards[i].suit == trump) {
-//       deckOfCards[i].trump = true;
-//     } else if (deckOfCards[i].suit == oppositeTrump && deckOfCards[i].rank == 'jack') {
-//       deckOfCards[i].trump = true;
-//       deckOfCards[i].rankNum = 7;
-//     } else {
-//       deckOfCards[i].trump = false;
-//     }
-//   }
-// }
-//
-// function bidding(){
-//   while (trump == '') {
-//
-//   }
-// }
-//
-// // function bidPass(){
-// //
-// // }
-//
-// function bidPickUp() {
-//   trump = pickUp.suit;
-//   switch(dealer) {
-//     case 1: //dealer switches card
-//       break;
-//     case 2:
-//       break;
-//     case 3:
-//       break;
-//     case 4:
-//       break;
-//     default: console.log('There was an error with bidPickUp');
-//   }
-// }
-//
-// // 4. Playing
-//
-// function playHand() {
-//   playFirstCard();
-//   if (dummy == 0) {
-//     for (var i = 0; i < 3; i++) {
-//       playCard();
-//       nextTurn();
-//     }
-//   } else {
-//     for (var i = 0; i < 2; i++) {
-//       playCard();
-//       nextTurn();
-//     }
-//   }
-//   currentMove = currentWinningHand.cardOwner;
-// }
-//
-// function playFirstCard() {
-//   currentWinningHand = //chosen card for dealer
-//   firstDealtSuit = currentWinningHand.suit;
-// }
-//
-// function playCard() {
-//   checkHandWinner();
-// }
-//
-// function checkHandWinner(currentWinningHand, newChallenger) {
-//   if (currentWinningHand.trump == true && newChallenger.trump == false) {
-//     currentWinningHand = currentWinningHand;
-//     nextTurn(); // Figure out
-//   } else if (currentWinningHand.trump == false && newChallenger.trump == true) {
-//     currentWinningHand = newChallenger;
-//     nextTurn(); // Figure out
-//   } else if (currentWinningHand.trump == true && currentWinningHand.trump == true) {
-//     checkHigherCard(currentWinningHand, newChallenger);
-//   } else {
-//     checkDealtSuit(currentWinningHand, newChallenger);
-//   }
-// }
-//
-// function checkDealtSuit(currentWinningHand, newChallenger) {
-//   if (newChallenger.suit != firstDealtSuit){
-//     currentWinningHand = currentWinningHand;
-//   } else {
-//     checkHigherCard(currentWinningHand, newChallenger);
-//   }
-// }
-//
-// function checkHigherCard(currentWinningHand, newChallenger) {
-//   if (currentWinningHand.rankNum > newChallenger.rankNum) {
-//     currentWinningHand = currentWinningHand;
-//   } else {
-//     currentWinningHand = newChallenger;
-//   }
-// }
-//
-// // 5. Keep Score and Declare winner
-//
-//
-// function trickScore(x) {
-//   if (x == 1 || x == 3) {
-//     var teamOneHandScore = teamOneHandScore + 1;
-//   } else if (x == 2 || x == 4) {
-//     var teamTwoHandScore = teamTwoHandScore + 1;
-//   }
-// }
-//
-// function addTotalScore(handsWon, goAlone, maker) {
-//   var score;
-//   if (goAlone == true) {
-//     if (maker == true) {
-//       if (handsWon == 5) {
-//         score = 4;
-//       } else if (handsWon > 2) {
-//         score = 1;
-//       } else {
-//         score = 0;
-//       }
-//     } else {
-//         if (handsWon > 2) {
-//           score = 4;
-//         } else {
-//           score = 0;
-//         }
-//     }
-//   } else {
-//     if (maker == true) {
-//       if (handsWon == 5) {
-//         score = 2;
-//       } else if (handsWon > 2) {
-//         score = 1;
-//       } else {
-//         score = 0;
-//       }
-//     } else {
-//       if (handsWon > 2) {
-//         score = 2;
-//       } else {
-//         score = 0;
-//       }
-//     }
-//   } return score;
-// }
-//
-//
-// function handScore(scoringTeam) {
-//   if (scoringTeam = 'Team One') {
-//     teamOneScore = teamOneScore + 1;
-//   } else if (scoringTeam = 'Team Two') {
-//     teamTwoScore = teamTwoScore + 1;
-//   } else {
-//
-//   }
-// }
-//
-//
-// function resetHand() {
-//   handOne = [];
-//   handTwo = [];
-//   handThree = [];
-//   handFour = [];
-//   teamOneHandScore = 0;
-//   teamTwoHandScore = 0;
-//   dummy = 0;
-//   goAloneTeamOne = false;
-//   goAloneTeamTwo = false;
-//   for (var i = 0; i < 24; i++) {
-//     deckOfCards[i].cardOwner = 0;
-//   }
-// }
-//
-// function resetGame() {
-//   resetHand();
-//   teamOneScore = 0;
-//   teamTwoScore = 0;
-// }
+
+function bidPickUp() {
+  trump = pickUp.suit;
+  switch(dealer) {
+    case 1: //dealer switches card
+      break;
+    case 2:
+      break;
+    case 3:
+      break;
+    case 4:
+      break;
+    default: console.log('There was an error with bidPickUp');
+  }
+}
+
+// 4. Playing
+
+
+function setClickFunctionPlay(currentMove){
+  $('#player'+currentMove.playerOrder+'HandCard1').click(function(){
+        if (allowedToPlayCard(currentMove) == true) {
+            $('#player'+currentMove.playerOrder+'HandCard1').appendTo('#player'+currentMove.playerOrder+'PlayedCard')
+            return true;
+        } else {
+            return false;
+        }
+
+      });
+  $('#player'+currentMove.playerOrder+'HandCard2').click(function(){
+      $('#player'+currentMove.playerOrder+'HandCard2').appendTo('#player'+currentMove.playerOrder+'PlayedCard')
+
+      });
+  $('#player'+currentMove.playerOrder+'HandCard3').click(function(){
+        $('#player'+currentMove.playerOrder+'HandCard3').appendTo('#player'+currentMove.playerOrder+'PlayedCard')
+
+      });
+  $('#player'+currentMove.playerOrder+'HandCard4').click(function(){
+        $('#player'+currentMove.playerOrder+'HandCard4').appendTo('#player'+currentMove.playerOrder+'PlayedCard')
+
+      });
+  $('#player'+currentMove.playerOrder+'HandCard5').click(function(){
+        $('#player'+currentMove.playerOrder+'HandCard5').appendTo('#player'+currentMove.playerOrder+'PlayedCard')
+
+      });
+}
+
+function allowedToPlayCard(currentMove, whichCard){
+    if (currentMove.playerOrder == dealer) {
+      return true;
+    } else if (currentMove.hand[whichCard].suit == firstDealtSuit) {
+      return true;
+    } else if (haveDealtSuitInHand == true) {
+      return true;
+    } else {
+      return false;
+    }
+}
+
+function haveDealtSuitInHand(currentMove) {
+    for (var i = 0; i < 5; i++) {
+      if (currentMove.hand[i].suit == firstDealtSuit && currentMove.hand[i].played == false) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+}
+
+function playHand() {
+  playFirstCard();
+  if (dummy == 0) {
+    for (var i = 0; i < 3; i++) {
+      playCard();
+      nextTurn();
+    }
+  } else {
+    for (var i = 0; i < 2; i++) {
+      playCard();
+      nextTurn();
+    }
+  }
+  currentMove = currentWinningHand.cardOwner;
+}
+
+function playFirstCard(dealer) {
+  currentHand = hand+''
+  setClickFunctionPlay(dealer);
+  currentWinningHand =
+  firstDealtSuit = currentWinningHand.suit;
+}
+
+function playCard() {
+  checkHandWinner();
+}
+
+function checkHandWinner(currentWinningHand, newChallenger) {
+  if (currentWinningHand.trump == true && newChallenger.trump == false) {
+    currentWinningHand = currentWinningHand;
+    nextTurn(); // Figure out
+  } else if (currentWinningHand.trump == false && newChallenger.trump == true) {
+    currentWinningHand = newChallenger;
+    nextTurn(); // Figure out
+  } else if (currentWinningHand.trump == true && currentWinningHand.trump == true) {
+    checkHigherCard(currentWinningHand, newChallenger);
+  } else {
+    checkDealtSuit(currentWinningHand, newChallenger);
+  }
+}
+
+function checkDealtSuit(currentWinningHand, newChallenger) {
+  if (newChallenger.suit != firstDealtSuit){
+    currentWinningHand = currentWinningHand;
+  } else {
+    checkHigherCard(currentWinningHand, newChallenger);
+  }
+}
+
+function checkHigherCard(currentWinningHand, newChallenger) {
+  if (currentWinningHand.rankNum > newChallenger.rankNum) {
+    currentWinningHand = currentWinningHand;
+  } else {
+    currentWinningHand = newChallenger;
+  }
+}
+
+// 5. Keep Score and Declare winner
+
+
+function trickScore(x) {
+  if (x == 1 || x == 3) {
+    var teamOneHandScore = teamOneHandScore + 1;
+  } else if (x == 2 || x == 4) {
+    var teamTwoHandScore = teamTwoHandScore + 1;
+  }
+}
+
+function addTotalScore(handsWon, goAlone, maker) {
+  var score;
+  if (goAlone == true) {
+    if (maker == true) {
+      if (handsWon == 5) {
+        score = 4;
+      } else if (handsWon > 2) {
+        score = 1;
+      } else {
+        score = 0;
+      }
+    } else {
+        if (handsWon > 2) {
+          score = 4;
+        } else {
+          score = 0;
+        }
+    }
+  } else {
+    if (maker == true) {
+      if (handsWon == 5) {
+        score = 2;
+      } else if (handsWon > 2) {
+        score = 1;
+      } else {
+        score = 0;
+      }
+    } else {
+      if (handsWon > 2) {
+        score = 2;
+      } else {
+        score = 0;
+      }
+    }
+  } return score;
+}
+
+function handScore(scoringTeam) {
+  if (scoringTeam = 'Team One') {
+    teamOneScore = teamOneScore + 1;
+  } else if (scoringTeam = 'Team Two') {
+    teamTwoScore = teamTwoScore + 1;
+  } else {
+
+  }
+}
+
+function resetHand() {
+  player1.hand = [];
+  player2.hand = [];
+  player3.hand = [];
+  player4.hand = [];
+  teamOneHandScore = 0;
+  teamTwoHandScore = 0;
+  dummy = 0;
+  goAloneTeamOne = false;
+  goAloneTeamTwo = false;
+  for (var i = 0; i < 24; i++) {
+    deckOfCards[i].cardOwner = 0;
+  }
+}
+
+function resetGame() {
+  resetHand();
+  teamOneScore = 0;
+  teamTwoScore = 0;
+}
