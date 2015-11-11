@@ -4,6 +4,7 @@ $player24height: 400px;
 $player24width: 54px;
 $playedcardwidth: 54px;
 $playedcardheight: 78px;
+$playedcardmargin: 60px;
 $gameWidth: 90%;
 $font-size: 16px;
 
@@ -39,19 +40,27 @@ body {
   margin-left: 40%;
   margin-top: 10%;
   float: left;
+  width: 300px;
 }
+
+// #middlecard {
+//   border: 1px solid blue;
+//   height: $playedcardheight;
+//   width: $playedcardwidth;
+//   float: left;
+// }
 
 #player1PlayedCard {
   border: 1px solid black;
   height: $playedcardheight;
   width: $playedcardwidth;
   clear:both;
-  margin-left: $playedcardwidth;
-  margin-right: $playedcardwidth;
+  margin-left: $playedcardmargin;
+  margin-right: $playedcardmargin;
 }
 
 #player2PlayedCard {
-  border: 1px solid black;
+  border: 1px solid white;
   height: $playedcardheight;
   width: $playedcardwidth;
   float: right;
@@ -61,8 +70,8 @@ body {
   border: 1px solid black;
   height: $playedcardheight;
   width: $playedcardwidth;
-  margin-left: $playedcardwidth;
-  margin-right: $playedcardwidth;
+  margin-left: $playedcardmargin;
+  margin-right: $playedcardmargin;
 }
 
 #player4PlayedCard {

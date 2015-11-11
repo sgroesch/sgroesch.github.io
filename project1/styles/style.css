@@ -24,18 +24,19 @@ body {
   border: 1px solid black;
   margin-left: 40%;
   margin-top: 10%;
-  float: left; }
+  float: left;
+  width: 300px; }
 
 #player1PlayedCard {
   border: 1px solid black;
   height: 78px;
   width: 54px;
   clear: both;
-  margin-left: 54px;
-  margin-right: 54px; }
+  margin-left: 60px;
+  margin-right: 60px; }
 
 #player2PlayedCard {
-  border: 1px solid black;
+  border: 1px solid white;
   height: 78px;
   width: 54px;
   float: right; }
@@ -44,8 +45,8 @@ body {
   border: 1px solid black;
   height: 78px;
   width: 54px;
-  margin-left: 54px;
-  margin-right: 54px; }
+  margin-left: 60px;
+  margin-right: 60px; }
 
 #player4PlayedCard {
   border: 1px solid black;
