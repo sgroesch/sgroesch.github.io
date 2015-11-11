@@ -97,29 +97,36 @@ function deal() {
       }
       player1.hand = [deckOfCards[0], deckOfCards[1], deckOfCards[2], deckOfCards[3], deckOfCards[4]];
       for (var i = 0; i < player1.hand.length; i++) {
-        setBackground(player1, i);
+        renderHands(player1, i);
       };
       player2.hand = [deckOfCards[5], deckOfCards[6], deckOfCards[7], deckOfCards[8], deckOfCards[9]];
       for (var i = 0; i < player2.hand.length; i++) {
-        setBackground(player2, i);
+        renderHands(player2, i);
       }
       player3.hand = [deckOfCards[10], deckOfCards[11], deckOfCards[12], deckOfCards[13], deckOfCards[14]];
       for (var i = 0; i < player3.hand.length; i++) {
-        setBackground(player3, i);
+        renderHands(player3, i);
       }
       player4.hand = [deckOfCards[15], deckOfCards[16], deckOfCards[17], deckOfCards[18], deckOfCards[19]];
       for (var i = 0; i < player4.hand.length; i++) {
-        setBackground(player4, i);
+        renderHands(player4, i);
       }
       pickUp = deckOfCards[23];
+      // renderPickUp(pickUp)
 }
 
 // Function to show background of card
 
-function setBackground(currentMove, whichCard) {
-  var imgUrl = 'styles/cards/' + currentMove.hand[whichCard].rank + '_of_' + currentMove.hand[whichCard].suit + '.png';
-  var soItWorks = whichCard + 1;
-  $('#player'+currentMove.playerOrder+'GameArea').append('<img class="card" id="player'+currentMove.playerOrder+'HandCard'+soItWorks+'" src='+imgUrl+'></img>');
+function imgUrl (card) {
+  return 'styles/cards/' + card.rank + '_of_' + card.suit + '.png';
+}
+
+// function renderPickUp(render) {
+//   $('#middleCard').append('<img class="card" src='+imgUrl(render)+'></img>')
+// }
+
+function renderHands(whichPlayersHand, inc) {
+  $('#player'+whichPlayersHand.playerOrder+'GameArea').append('<img class="card" id="player'+whichPlayersHand.playerOrder+'HandCard'+(inc + 1)+'" src='+imgUrl(whichPlayersHand.hand[inc])+'></img>');
 }
 
 // Bidding: Pick up to set trump, pass,
@@ -341,16 +348,17 @@ function checkHigherCard(currentWinningHand, newChallenger) {
   }
 }
 
-// 5. Keep Score and Declare winner
-
-
-function trickScore(x) {
-  if (x == 1 || x == 3) {
+function trickScore(currentWinningHand) {
+  if (currentWinningHand == 1 || currentWinningHand == 3) {
     var teamOneHandScore = teamOneHandScore + 1;
-  } else if (x == 2 || x == 4) {
+  } else if (currentWinningHand == 2 || currentWinningHand == 4) {
     var teamTwoHandScore = teamTwoHandScore + 1;
   }
 }
+
+// 5. Keep Score and Declare winner
+
+
 
 function addTotalScore(handsWon, goAlone, maker) {
   var score;
@@ -389,15 +397,6 @@ function addTotalScore(handsWon, goAlone, maker) {
   } return score;
 }
 
-function handScore(scoringTeam) {
-  if (scoringTeam = 'Team One') {
-    teamOneScore = teamOneScore + 1;
-  } else if (scoringTeam = 'Team Two') {
-    teamTwoScore = teamTwoScore + 1;
-  } else {
-
-  }
-}
 
 function resetHand() {
   player1.hand = [];
