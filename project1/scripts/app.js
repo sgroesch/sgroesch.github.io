@@ -112,7 +112,7 @@ function deal() {
         renderHands(player4, i);
       }
       pickUp = deckOfCards[23];
-      // renderPickUp(pickUp)
+      renderPickUp(pickUp)
 }
 
 // Function to show background of card
@@ -121,9 +121,9 @@ function imgUrl (card) {
   return 'styles/cards/' + card.rank + '_of_' + card.suit + '.png';
 }
 
-// function renderPickUp(render) {
-//   $('#middleCard').append('<img class="card" src='+imgUrl(render)+'></img>')
-// }
+function renderPickUp(render) {
+  $('#middleCard').append('<img class="card" src='+imgUrl(render)+'></img>')
+}
 
 function renderHands(whichPlayersHand, inc) {
   $('#player'+whichPlayersHand.playerOrder+'GameArea').append('<img class="card" id="player'+whichPlayersHand.playerOrder+'HandCard'+(inc + 1)+'" src='+imgUrl(whichPlayersHand.hand[inc])+'></img>');

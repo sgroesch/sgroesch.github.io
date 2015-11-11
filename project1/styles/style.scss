@@ -4,9 +4,10 @@ $player24height: 400px;
 $player24width: 54px;
 $playedcardwidth: 54px;
 $playedcardheight: 78px;
-$playedcardmargin: 60px;
+$playedcardmargin: 54px;
 $gameWidth: 90%;
 $font-size: 16px;
+$cardmargin: 2px;
 
 body {
   font-size: $font-size;
@@ -24,8 +25,6 @@ body {
 .card {
   height: 78px;
   width: 54px;
-  border: 2px solid black;
-  background: url('cards/9_of_clubs.png');
 }
 
 #game {
@@ -36,22 +35,19 @@ body {
 }
 
 #trickArea {
-  border: 1px solid black;
   margin-left: 40%;
   margin-top: 10%;
   float: left;
-  width: 300px;
 }
 
-// #middlecard {
-//   border: 1px solid blue;
-//   height: $playedcardheight;
-//   width: $playedcardwidth;
-//   float: left;
-// }
+#middleCard {
+  height: $playedcardheight;
+  width: $playedcardwidth;
+  float: left;
+  margin: 1px;
+}
 
 #player1PlayedCard {
-  border: 1px solid black;
   height: $playedcardheight;
   width: $playedcardwidth;
   clear:both;
@@ -60,14 +56,12 @@ body {
 }
 
 #player2PlayedCard {
-  border: 1px solid white;
   height: $playedcardheight;
   width: $playedcardwidth;
-  float: right;
+  float: left;
 }
 
 #player3PlayedCard {
-  border: 1px solid black;
   height: $playedcardheight;
   width: $playedcardwidth;
   margin-left: $playedcardmargin;
@@ -75,7 +69,6 @@ body {
 }
 
 #player4PlayedCard {
-  border: 1px solid black;
   height: $playedcardheight;
   width: $playedcardwidth;
   float: left;
@@ -91,6 +84,11 @@ body {
   border: 1px solid black;
   height: $font-size;
   clear: both;
+}
+
+#player1GameArea img {
+  margin-left: $cardmargin;
+  margin-right: $cardmargin;
 }
 
 #player1HandCard1 {
@@ -118,6 +116,11 @@ body {
   float: right;
   clear: right;
   height: $player24height;
+}
+
+#player2GameArea img {
+  margin-top: $cardmargin;
+  margin-bottom: $cardmargin;
 }
 
 #player2GameAreaName {
@@ -156,6 +159,11 @@ body {
   height: $player13height;
 }
 
+#player3GameArea img {
+  margin-left: $cardmargin;
+  margin-right: $cardmargin;
+}
+
 #player3GameAreaName {
   border: 1px solid black;
   height: $font-size;
@@ -187,6 +195,11 @@ body {
   float: left;
   clear: both;
   height: $player24height;
+}
+
+#player4GameArea img {
+  margin-top: $cardmargin;
+  margin-bottom: $cardmargin;
 }
 
 #player4GameAreaName {

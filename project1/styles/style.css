@@ -10,9 +10,7 @@ body {
 
 .card {
   height: 78px;
-  width: 54px;
-  border: 2px solid black;
-  background: url("cards/9_of_clubs.png"); }
+  width: 54px; }
 
 #game {
   border: 4px solid black;
@@ -21,35 +19,35 @@ body {
   background: #194d1e; }
 
 #trickArea {
-  border: 1px solid black;
   margin-left: 40%;
   margin-top: 10%;
+  float: left; }
+
+#middleCard {
+  height: 78px;
+  width: 54px;
   float: left;
-  width: 300px; }
+  margin: 1px; }
 
 #player1PlayedCard {
-  border: 1px solid black;
   height: 78px;
   width: 54px;
   clear: both;
-  margin-left: 60px;
-  margin-right: 60px; }
+  margin-left: 54px;
+  margin-right: 54px; }
 
 #player2PlayedCard {
-  border: 1px solid white;
   height: 78px;
   width: 54px;
-  float: right; }
+  float: left; }
 
 #player3PlayedCard {
-  border: 1px solid black;
   height: 78px;
   width: 54px;
-  margin-left: 60px;
-  margin-right: 60px; }
+  margin-left: 54px;
+  margin-right: 54px; }
 
 #player4PlayedCard {
-  border: 1px solid black;
   height: 78px;
   width: 54px;
   float: left; }
@@ -64,11 +62,19 @@ body {
   height: 16px;
   clear: both; }
 
+#player1GameArea img {
+  margin-left: 2px;
+  margin-right: 2px; }
+
 #player2GameArea {
   border: 1px solid black;
   float: right;
   clear: right;
   height: 400px; }
+
+#player2GameArea img {
+  margin-top: 2px;
+  margin-bottom: 2px; }
 
 #player2GameAreaName {
   border: 1px solid black;
@@ -99,6 +105,10 @@ body {
   border: 1px solid black;
   height: 78px; }
 
+#player3GameArea img {
+  margin-left: 2px;
+  margin-right: 2px; }
+
 #player3GameAreaName {
   border: 1px solid black;
   height: 16px;
@@ -109,6 +119,10 @@ body {
   float: left;
   clear: both;
   height: 400px; }
+
+#player4GameArea img {
+  margin-top: 2px;
+  margin-bottom: 2px; }
 
 #player4GameAreaName {
   border: 1px solid black;
