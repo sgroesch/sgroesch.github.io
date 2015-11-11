@@ -13,22 +13,38 @@ window.onload = function() {
 
 // Make Deck and deal cards
 var deckOfCards = [];
-var player1 = {playerOrder: 1, hand: []};
-var player2 = {playerOrder: 2, hand: []};
-var player3 = {playerOrder: 3, hand: []};
-var player4 = {playerOrder: 4, hand: []};
+var player1 = {
+  playerOrder: 1,
+  hand: [],
+  goAlone: false,
+  dummy: false};
+var player2 = {
+  playerOrder: 2,
+  hand: [],
+  goAlone: false,
+  dummy: false};
+var player3 = {
+  playerOrder: 3,
+  hand: [],
+  goAlone: false,
+  dummy: false};
+var player4 = {
+  playerOrder: 4,
+  hand: [],
+  goAlone: false,
+  dummy: false};
 var teamOneHandScore;
 var teamTwoHandScore;
 var teamOneTotalScore;
 var teamTwoTotalScore;
 var trump;
 var oppositeTrump;
-var goAloneTeamOne;
-var goAloneTeamTwo;
-var dummyTeamOne;
-var dummyTeamTwo;
 var maker;
-var currentMove = {playerOrder: null, hand: [null, null, null, null, null]};
+var currentMove = {
+  playerOrder: null,
+  hand: [null, null, null, null, null],
+  goAlone: null,
+  dummy: null};
 var dealer = 1;
 
 
@@ -106,10 +122,8 @@ function setBackground(currentMove, whichCard) {
   $('#player'+currentMove.playerOrder+'GameArea').append('<img class="card" id="player'+currentMove.playerOrder+'HandCard'+soItWorks+'" src='+imgUrl+'></img>');
 }
 
-Bidding: Pick up to set trump, pass,
+// Bidding: Pick up to set trump, pass,
 
-$('#player'+currentMove+'HandCard1').click(function(){
-  $('#player'+currentMove+'HandCard1').appendTo('#player'+currentMove+'PlayedCard')});
 function nextDealer() {
   dealer = (dealer%4 + 1);
 }
@@ -122,18 +136,18 @@ function nextTurn(){
 }
 
 function setGoingAloneAndDummy(currentMove) {
-  switch (currentMove) {
-    case 1: goAloneTeamOne = true;
-            dummy = 3;
+  switch (currentMove.playerOrder) {
+    case 1: player1.goAlone = true;
+            player3.dummy = true;
       break;
-    case 2: goAloneTeamTwo = true;
-            dummy = 4;
+    case 2: player2.goAlone = true;
+            player4.dummy = true;
       break;
-    case 3: goAloneTeamOne = true;
-            dummy = 1;
+    case 3: player3.goAlone = true;
+            player1.dummy = true;
       break;
-    case 4: goAloneTeamTwo = true;
-            dummy = 2;
+    case 4: player4.goAlone = true;
+            player2.dummy = true;
       break;
     default: console.log('Setting the goAlone function messed up');
   }
@@ -183,9 +197,9 @@ function bidding(){
   }
 }
 
-// function bidPass(){
-//
-// }
+function bidPass(){
+
+ }
 
 function bidPickUp() {
   trump = pickUp.suit;
@@ -213,24 +227,39 @@ function setClickFunctionPlay(currentMove){
         } else {
             return false;
         }
-
-      });
+  });
   $('#player'+currentMove.playerOrder+'HandCard2').click(function(){
-      $('#player'+currentMove.playerOrder+'HandCard2').appendTo('#player'+currentMove.playerOrder+'PlayedCard')
-
-      });
+        if (allowedToPlayCard(currentMove) == true) {
+            $('#player'+currentMove.playerOrder+'HandCard2').appendTo('#player'+currentMove.playerOrder+'PlayedCard')
+            return true;
+        } else {
+            return false;
+        }
+  });
   $('#player'+currentMove.playerOrder+'HandCard3').click(function(){
-        $('#player'+currentMove.playerOrder+'HandCard3').appendTo('#player'+currentMove.playerOrder+'PlayedCard')
-
-      });
+        if (allowedToPlayCard(currentMove) == true) {
+            $('#player'+currentMove.playerOrder+'HandCard3').appendTo('#player'+currentMove.playerOrder+'PlayedCard')
+            return true;
+        } else {
+            return false;
+        }
+  });
   $('#player'+currentMove.playerOrder+'HandCard4').click(function(){
-        $('#player'+currentMove.playerOrder+'HandCard4').appendTo('#player'+currentMove.playerOrder+'PlayedCard')
-
-      });
+        if (allowedToPlayCard(currentMove) == true) {
+            $('#player'+currentMove.playerOrder+'HandCard4').appendTo('#player'+currentMove.playerOrder+'PlayedCard')
+            return true;
+        } else {
+            return false;
+        }
+  });
   $('#player'+currentMove.playerOrder+'HandCard5').click(function(){
-        $('#player'+currentMove.playerOrder+'HandCard5').appendTo('#player'+currentMove.playerOrder+'PlayedCard')
-
-      });
+        if (allowedToPlayCard(currentMove) == true) {
+            $('#player'+currentMove.playerOrder+'HandCard5').appendTo('#player'+currentMove.playerOrder+'PlayedCard')
+            return true;
+        } else {
+            return false;
+        }
+  });
 }
 
 function allowedToPlayCard(currentMove, whichCard){
@@ -238,7 +267,7 @@ function allowedToPlayCard(currentMove, whichCard){
       return true;
     } else if (currentMove.hand[whichCard].suit == firstDealtSuit) {
       return true;
-    } else if (haveDealtSuitInHand == true) {
+    } else if (haveDealtSuitInHand(currentMove) == true) {
       return true;
     } else {
       return false;
