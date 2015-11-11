@@ -144,36 +144,6 @@ function nextDealer() {
   dealer = (dealer%4 + 1);
 }
 
-function nextTurn(currentMove){
-  switch (currentMove.playerOrder) {
-    case 1: if (player2.dummy == true) {
-              currentMove = player3;
-            } else {
-              currentMove = player2;
-            };
-        break;
-    case 2: if (player3.dummy == true) {
-              currentMove = player4;
-            } else {
-              currentMove = player3;
-            };
-        break;
-    case 3: if (player4.dummy == true) {
-              currentMove = player1;
-            } else {
-              currentMove = player4;
-            };
-        break;
-    case 4: if (player1.dummy == true) {
-              currentMove = player2;
-            } else {
-              currentMove = player1;
-            };
-        break;
-    default: console.log('The nextTurn function messed up')
-  }
-}
-
 function setGoingAloneAndDummy(currentMove) {
   switch (currentMove.playerOrder) {
     case 1: player1.goAlone = true;
@@ -346,7 +316,6 @@ function clickHandCards(playerHandToClick){
   }});
  }
 
-
 function allowedToPlayCard(canPlaceThisCard, whichCard){
     if (canPlaceThisCard.playerOrder == handStarter) {
       return true;
@@ -365,34 +334,6 @@ function haveDealtSuitInHand(handToCheck) {
         return true;
       }
     } return false;
-}
-
-function playHand() {
-  playFirstCard();
-  if (dummy == 0) {
-    for (var i = 0; i < 3; i++) {
-      playCard();
-      nextTurn();
-    }
-  } else {
-    for (var i = 0; i < 2; i++) {
-      playCard();
-      nextTurn();
-    }
-  }
-  currentMove = currentWinningTrick.cardOwner;
-}
-
-function playFirstCard(dealer) {
-  currentHand = hand+''
-  // while(clickHandCards() = false){
-    clickHandCards(dealer);
-  currentWinningTrick =
-  firstDealtSuit = currentWinningTrick.suit;
-}
-
-function playCard() {
-  checkHandWinner();
 }
 
 function checkHandWinner() {
@@ -420,6 +361,67 @@ function checkHigherCard() {
     currentWinningTrick = currentWinningTrick;
   } else {
     currentWinningTrick = newChallenger;
+  }
+}
+
+
+
+function playHand() {
+  playFirstCard();
+  if (dummy == 0) {
+    for (var i = 0; i < 3; i++) {
+      playCard();
+      nextTurn();
+    }
+  } else {
+    for (var i = 0; i < 2; i++) {
+      playCard();
+      nextTurn();
+    }
+  }
+  currentMove = currentWinningTrick.cardOwner;
+}
+
+function playFirstCard(dealer) {
+  currentHand = hand+''
+  // while(clickHandCards() = false){
+    clickHandCards(dealer);
+  currentWinningTrick =
+  firstDealtSuit = currentWinningTrick.suit;
+}
+
+function playTrick() {
+  clickHandCards(currentMove);
+}
+
+
+function nextTurn(currentMove){
+  switch (currentMove.playerOrder) {
+    case 1: if (player2.dummy == true) {
+              currentMove = player3;
+            } else {
+              currentMove = player2;
+            };
+        break;
+    case 2: if (player3.dummy == true) {
+              currentMove = player4;
+            } else {
+              currentMove = player3;
+            };
+        break;
+    case 3: if (player4.dummy == true) {
+              currentMove = player1;
+            } else {
+              currentMove = player4;
+            };
+        break;
+    case 4: if (player1.dummy == true) {
+              currentMove = player2;
+            } else {
+              currentMove = player1;
+            };
+        break;
+    default: console.log('The nextTurn function messed up')
   }
 }
 
