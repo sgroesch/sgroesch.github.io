@@ -18,22 +18,26 @@ var player1 = {
   playerOrder: 1,
   hand: [],
   goAlone: false,
-  dummy: false};
+  dummy: false,
+  controller: null};
 var player2 = {
   playerOrder: 2,
   hand: [],
   goAlone: false,
-  dummy: false};
+  dummy: false,
+  controller: null};
 var player3 = {
   playerOrder: 3,
   hand: [],
   goAlone: false,
-  dummy: false};
+  dummy: false,
+  controller: null};
 var player4 = {
   playerOrder: 4,
   hand: [],
   goAlone: false,
-  dummy: false};
+  dummy: false,
+  controller: null};
 var teamOneHandScore;
 var teamTwoHandScore;
 var teamOneTotalScore;
@@ -45,7 +49,8 @@ var currentMove = {
   playerOrder: null,
   hand: [null, null, null, null, null],
   goAlone: null,
-  dummy: null};
+  dummy: null,
+  controller: null};
 var dealer = 1;
 var firstDealtSuit;
 var currentWinningTrick;
@@ -418,17 +423,15 @@ function checkHigherCard() {
   }
 }
 
-function trickScore(currentWinningTrick) {
-  if (currentWinningTrick == 1 || currentWinningTrick == 3) {
+function trickScore(finalTrickWinner) {
+  if (finalTrickWinner.cardOwner == 1 || finalTrickWinner.cardOwner == 3) {
     var teamOneHandScore = teamOneHandScore + 1;
-  } else if (currentWinningTrick == 2 || currentWinningTrick == 4) {
+  } else if (finalTrickWinner.cardOwner == 2 || finalTrickWinner.cardOwner == 4) {
     var teamTwoHandScore = teamTwoHandScore + 1;
   }
 }
 
 // 5. Keep Score and Declare winner
-
-
 
 function addTotalScore(handsWon, goAlone, maker) {
   var score;
