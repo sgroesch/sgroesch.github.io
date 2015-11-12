@@ -2,7 +2,11 @@ window.onload = function() {
   console.log('hey this worked');
   makeDeck();
   deal();
+  currentMove = player2;
+  newChallenger = deckOfCards[22];
   setTrump(trump);
+  clickHandCards(player2);
+  $('#player2PlayedCard').change(console.log('You did It!'));
 }
 
 
@@ -51,11 +55,11 @@ var currentMove = {
   goAlone: null,
   dummy: null,
   controller: null};
-var dealer = 1;
+var dealer = 2;
 var firstDealtSuit;
 var currentWinningTrick;
 var newChallenger;
-var handStarter = 1;
+var handStarter = 2;
 
 function makeDeck() {
   for (var i = 0; i < 24; i++) {
@@ -390,12 +394,17 @@ function playFirstCard(dealer) {
   firstDealtSuit = currentWinningTrick.suit;
 }
 
-function playTrick() {
-  clickHandCards(currentMove);
-}
+// function playTrick() {
+//   for (var a = 0; a < 4; a++) {
+//       var def = $
+//       clickHandCards(currentMove);
+//
+//       nextTurn();
+//
+// }}
 
 
-function nextTurn(currentMove){
+function nextTurn(){
   switch (currentMove.playerOrder) {
     case 1: if (player2.dummy == true) {
               currentMove = player3;
@@ -472,6 +481,10 @@ function addTotalScore(handsWon, goAlone, maker) {
   } return score;
 }
 
+function renderScore() {
+   $('#scoreTeamOne').innerText = teamOneTotalScore;
+   $('#scoreTeamTwo').innerText = teamTwoTotalScore;
+}
 
 function resetHand() {
   player1.hand = [];
