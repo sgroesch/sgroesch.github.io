@@ -3,6 +3,7 @@ window.onload = function() {
   makeDeck();
   deal();
   currentMove = player2;
+  trump = deckOfCards[23].suit;
   setTrump(trump);
   playTrick();
   $('#scoreTeamOne').change(function(){
@@ -501,6 +502,8 @@ function renderScore() {
   }
   setHandStarter();
   counter = 0;
+  console.log(handStarter);
+  console.log(currentMove);
   currentWinningTrick = {};
   newChallenger = {};
   clickHandCards(currentMove);
@@ -508,6 +511,7 @@ function renderScore() {
 
 function setHandStarter() {
   handStarter = currentWinningTrick.cardOwner;
+  firstDealtSuit = '';
   switch (handStarter) {
     case 1: currentMove = player1;
       break;
