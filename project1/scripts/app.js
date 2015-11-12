@@ -3,12 +3,18 @@ window.onload = function() {
   makeDeck();
   deal();
   currentMove = player2;
-  newChallenger = deckOfCards[22];
   setTrump(trump);
-  clickHandCards(player2);
-  $('#player'+currentMove.playerOrder+'PlayedCard').change(nextTurnButton());
+  playTrick();
+
 }
 
+function blackOut(x) {
+  hold1 = $('#player'+x+'GameArea').children().detach()
+}
+
+function blackIn(x) {
+  $('#player'+x+'GameArea').append(hold1)
+}
 
 // Ask how many human and computer players and set number
 
@@ -58,8 +64,9 @@ var currentMove = {
 var dealer = 2;
 var firstDealtSuit;
 var currentWinningTrick;
-var newChallenger;
+var newChallenger = {trump: false};
 var handStarter = 2;
+var counter = 0;
 
 function makeDeck() {
   for (var i = 0; i < 24; i++) {
@@ -210,9 +217,9 @@ function bidding(){
   }
 }
 
-function bidPass(){
-    nextTurn();
- }
+// function bidPass(){
+//     nextTurn();
+//  }
 
 function bidPickUp() {
   trump = pickUp.suit;
@@ -248,7 +255,8 @@ function clickHandCards(playerHandToClick){
             checkHandWinner();
         } else {
             console.log('False');
-        } break;
+        } $('#player'+currentMove.playerOrder+'PlayedCard').change(nextTurnButtonIn());
+        break;
   }});
   $('#player'+playerHandToClick.playerOrder+'HandCard2').click(function(){
         while ($('#player'+playerHandToClick.playerOrder+'PlayedCard').has('img').length == 0) {
@@ -265,7 +273,8 @@ function clickHandCards(playerHandToClick){
             checkHandWinner();
         } else {
             console.log('False');
-        } break;
+        } $('#player'+currentMove.playerOrder+'PlayedCard').change(nextTurnButtonIn());
+        break;
   }});
   $('#player'+playerHandToClick.playerOrder+'HandCard3').click(function(){
         while ($('#player'+playerHandToClick.playerOrder+'PlayedCard').has('img').length == 0) {
@@ -282,7 +291,8 @@ function clickHandCards(playerHandToClick){
             checkHandWinner();
         } else {
             console.log('False');
-        } break;
+        } $('#player'+currentMove.playerOrder+'PlayedCard').change(nextTurnButtonIn());
+        break;
   }});
   $('#player'+playerHandToClick.playerOrder+'HandCard4').click(function(){
         while ($('#player'+playerHandToClick.playerOrder+'PlayedCard').has('img').length == 0) {
@@ -299,7 +309,8 @@ function clickHandCards(playerHandToClick){
             checkHandWinner();
         } else {
             console.log('False');
-        } break;
+        } $('#player'+currentMove.playerOrder+'PlayedCard').change(nextTurnButtonIn());
+        break;
   }});
   $('#player'+playerHandToClick.playerOrder+'HandCard5').click(function(){
         while ($('#player'+playerHandToClick.playerOrder+'PlayedCard').has('img').length == 0) {
@@ -316,7 +327,8 @@ function clickHandCards(playerHandToClick){
             checkHandWinner();
         } else {
             console.log('False');
-        } break;
+        } $('#player'+currentMove.playerOrder+'PlayedCard').change(nextTurnButtonIn());
+        break;
   }});
  }
 
@@ -370,21 +382,21 @@ function checkHigherCard() {
 
 
 
-function playHand() {
-  playFirstCard();
-  if (dummy == 0) {
-    for (var i = 0; i < 3; i++) {
-      playCard();
-      nextTurn();
-    }
-  } else {
-    for (var i = 0; i < 2; i++) {
-      playCard();
-      nextTurn();
-    }
-  }
-  currentMove = currentWinningTrick.cardOwner;
-}
+// function playHand() {
+//   playFirstCard();
+//   if (dummy == 0) {
+//     for (var i = 0; i < 3; i++) {
+//       playCard();
+//       nextTurn();
+//     }
+//   } else {
+//     for (var i = 0; i < 2; i++) {
+//       playCard();
+//       nextTurn();
+//     }
+//   }
+//   currentMove = currentWinningTrick.cardOwner;
+// }
 
 function playFirstCard(dealer) {
   currentHand = hand+''
@@ -394,20 +406,28 @@ function playFirstCard(dealer) {
   firstDealtSuit = currentWinningTrick.suit;
 }
 
-function nextTurnButton() {
-  $('#nextTurnButton').on('click', nextTurn(); )
+// $('#player'+currentMove.playerOrder+'PlayedCard').change(nextTurnButtonIn());
+
+function nextTurnButtonIn() {
+  $('<button id="#nextTurnButton">Next Turn</button>').appendTo('#messageBar');
+  $('#nextTurnButton').on("click", nextTurn());
 }
 
-// function playTrick() {
+// $('#messageBar').empty();
+
+// function nextTurnButtonOut() {
 //
-//       clickHandCards(currentMove);
-//       $('#player'currentMove.playerOrder'PlayedCard').change().append('<button id="nextTurnButton"></button>');
-//       nextTurn();
 //
 // }
 
+function playTrick() {
+  while (counter < 4) {
+      clickHandCards(currentMove);
+  }
+}
 
-function nextTurn(){
+
+function nextTurn() {
   switch (currentMove.playerOrder) {
     case 1: if (player2.dummy == true) {
               currentMove = player3;
@@ -435,6 +455,7 @@ function nextTurn(){
         break;
     default: console.log('The nextTurn function messed up')
   }
+  counter = counter + 1;
 }
 
 function trickScore(finalTrickWinner) {
