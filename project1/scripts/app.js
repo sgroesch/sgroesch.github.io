@@ -5,7 +5,9 @@ window.onload = function() {
   currentMove = player2;
   setTrump(trump);
   playTrick();
+  $('#scoreTeamOne').change(function(){
 
+  })
 }
 
 function blackOut(x) {
@@ -48,8 +50,8 @@ var player4 = {
   goAlone: false,
   dummy: false,
   controller: null};
-var teamOneHandScore;
-var teamTwoHandScore;
+var teamOneHandScore = 0;
+var teamTwoHandScore = 0;
 var teamOneTotalScore;
 var teamTwoTotalScore;
 var trump = 'hearts';
@@ -253,9 +255,10 @@ function clickHandCards(playerHandToClick){
               newChallenger = playerHandToClick.hand[0];
             }
             checkHandWinner();
+            nextTurn();
         } else {
             console.log('False');
-        } $('#player'+currentMove.playerOrder+'PlayedCard').change(nextTurnButtonIn());
+        }
         break;
   }});
   $('#player'+playerHandToClick.playerOrder+'HandCard2').click(function(){
@@ -271,9 +274,10 @@ function clickHandCards(playerHandToClick){
               newChallenger = playerHandToClick.hand[1];
             }
             checkHandWinner();
+            nextTurn();
         } else {
             console.log('False');
-        } $('#player'+currentMove.playerOrder+'PlayedCard').change(nextTurnButtonIn());
+        }
         break;
   }});
   $('#player'+playerHandToClick.playerOrder+'HandCard3').click(function(){
@@ -289,9 +293,10 @@ function clickHandCards(playerHandToClick){
               newChallenger = playerHandToClick.hand[2];
             }
             checkHandWinner();
+            nextTurn();
         } else {
             console.log('False');
-        } $('#player'+currentMove.playerOrder+'PlayedCard').change(nextTurnButtonIn());
+        }
         break;
   }});
   $('#player'+playerHandToClick.playerOrder+'HandCard4').click(function(){
@@ -307,9 +312,10 @@ function clickHandCards(playerHandToClick){
               newChallenger = playerHandToClick.hand[3];
             }
             checkHandWinner();
+            nextTurn();
         } else {
             console.log('False');
-        } $('#player'+currentMove.playerOrder+'PlayedCard').change(nextTurnButtonIn());
+        }
         break;
   }});
   $('#player'+playerHandToClick.playerOrder+'HandCard5').click(function(){
@@ -325,9 +331,10 @@ function clickHandCards(playerHandToClick){
               newChallenger = playerHandToClick.hand[4];
             }
             checkHandWinner();
+            nextTurn();
         } else {
             console.log('False');
-        } $('#player'+currentMove.playerOrder+'PlayedCard').change(nextTurnButtonIn());
+        }
         break;
   }});
  }
@@ -382,32 +389,6 @@ function checkHigherCard() {
 
 
 
-// function playHand() {
-//   playFirstCard();
-//   if (dummy == 0) {
-//     for (var i = 0; i < 3; i++) {
-//       playCard();
-//       nextTurn();
-//     }
-//   } else {
-//     for (var i = 0; i < 2; i++) {
-//       playCard();
-//       nextTurn();
-//     }
-//   }
-//   currentMove = currentWinningTrick.cardOwner;
-// }
-
-function playFirstCard(dealer) {
-  currentHand = hand+''
-
-    clickHandCards(dealer);
-  currentWinningTrick =
-  firstDealtSuit = currentWinningTrick.suit;
-}
-
-// $('#player'+currentMove.playerOrder+'PlayedCard').change(nextTurnButtonIn());
-
 function nextTurnButtonIn() {
   $('<button id="#nextTurnButton">Next Turn</button>').appendTo('#messageBar');
   $('#nextTurnButton').on("click", nextTurn());
@@ -421,9 +402,8 @@ function nextTurnButtonIn() {
 // }
 
 function playTrick() {
-  while (counter < 4) {
-      clickHandCards(currentMove);
-  }
+
+    clickHandCards(currentMove);
 }
 
 
@@ -456,77 +436,108 @@ function nextTurn() {
     default: console.log('The nextTurn function messed up')
   }
   counter = counter + 1;
+  if (counter < 4) {
+    clickHandCards(currentMove);
+  } else if (counter = 4) {
+    trickScore();
+    renderScore();
+  }
 }
 
-function trickScore(finalTrickWinner) {
-  if (finalTrickWinner.cardOwner == 1 || finalTrickWinner.cardOwner == 3) {
-    var teamOneHandScore = teamOneHandScore + 1;
-  } else if (finalTrickWinner.cardOwner == 2 || finalTrickWinner.cardOwner == 4) {
-    var teamTwoHandScore = teamTwoHandScore + 1;
+function trickScore() {
+  if (currentWinningTrick.cardOwner == 1 || currentWinningTrick.cardOwner == 3) {
+    teamOneHandScore = teamOneHandScore + 1;
+  } else if (currentWinningTrick.cardOwner == 2 || currentWinningTrick.cardOwner == 4) {
+    teamTwoHandScore = teamTwoHandScore + 1;
   }
 }
 
 // 5. Keep Score and Declare winner
 
-function addTotalScore(handsWon, goAlone, maker) {
-  var score;
-  if (goAlone == true) {
-    if (maker == true) {
-      if (handsWon == 5) {
-        score = 4;
-      } else if (handsWon > 2) {
-        score = 1;
-      } else {
-        score = 0;
-      }
-    } else {
-        if (handsWon > 2) {
-          score = 4;
-        } else {
-          score = 0;
-        }
-    }
-  } else {
-    if (maker == true) {
-      if (handsWon == 5) {
-        score = 2;
-      } else if (handsWon > 2) {
-        score = 1;
-      } else {
-        score = 0;
-      }
-    } else {
-      if (handsWon > 2) {
-        score = 2;
-      } else {
-        score = 0;
-      }
-    }
-  } return score;
-}
+// function addTotalScore(handsWon, goAlone, maker) {
+//   var score;
+//   if (goAlone == true) {
+//     if (maker == true) {
+//       if (handsWon == 5) {
+//         score = 4;
+//       } else if (handsWon > 2) {
+//         score = 1;
+//       } else {
+//         score = 0;
+//       }
+//     } else {
+//         if (handsWon > 2) {
+//           score = 4;
+//         } else {
+//           score = 0;
+//         }
+//     }
+//   } else {
+//     if (maker == true) {
+//       if (handsWon == 5) {
+//         score = 2;
+//       } else if (handsWon > 2) {
+//         score = 1;
+//       } else {
+//         score = 0;
+//       }
+//     } else {
+//       if (handsWon > 2) {
+//         score = 2;
+//       } else {
+//         score = 0;
+//       }
+//     }
+//   } return score;
+// }
 
 function renderScore() {
-   $('#scoreTeamOne').innerText = teamOneTotalScore;
-   $('#scoreTeamTwo').innerText = teamTwoTotalScore;
+  $('#scoreTeamOne').empty()
+  $('#scoreTeamTwo').empty()
+  $('#scoreTeamOne').append(' '+teamOneHandScore+' ');
+  $('#scoreTeamTwo').append(' '+teamTwoHandScore+' ');
+  for (var i = 1; i < 5; i++) {
+    $('#player'+i+'PlayedCard').empty();
+  }
+  setHandStarter();
+  counter = 0;
+  currentWinningTrick = {};
+  newChallenger = {};
+  clickHandCards(currentMove);
 }
 
-function resetHand() {
-  player1.hand = [];
-  player2.hand = [];
-  player3.hand = [];
-  player4.hand = [];
-  teamOneHandScore = 0;
-  teamTwoHandScore = 0;
-  dummy = 0;
-  goAloneTeamOne = false;
-  goAloneTeamTwo = false;
-  for (var i = 0; i < 24; i++) {
-    deckOfCards[i].cardOwner = 0;
+function setHandStarter() {
+  handStarter = currentWinningTrick.cardOwner;
+  switch (handStarter) {
+    case 1: currentMove = player1;
+      break;
+    case 2: currentMove = player2;
+        break;
+    case 3: currentMove = player3;
+        break;
+    case 4: currentMove = player4;
+        break;
+    default: console.log('Did not reset hand starter');
   }
 }
-
-function resetGame() {
-  resetHand();
-  teamOneScore = 0;
-  teamTwoScore = 0;
-}
+//
+// function resetHand() {
+//   player1.hand = [];
+//   player2.hand = [];
+//   player3.hand = [];
+//   player4.hand = [];
+//   teamOneHandScore = 0;
+//   teamTwoHandScore = 0;
+//   dummy = 0;
+//   goAloneTeamOne = false;
+//   goAloneTeamTwo = false;
+//   for (var i = 0; i < 24; i++) {
+//     deckOfCards[i].cardOwner = 0;
+//   }
+// }
+//
+// function resetGame() {
+//   resetHand();
+//   teamOneScore = 0;
+//   teamTwoScore = 0;
+// }
