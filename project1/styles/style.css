@@ -34,9 +34,6 @@ body {
   float: left;
   height: 16px; }
 
-#overlay3 {
-  background-color: black; }
-
 #game {
   border: 4px solid black;
   width: 90%;
@@ -182,7 +179,7 @@ body {
 #messageBar {
   border: 1px solid black;
   clear: both;
-  height: 16px;
+  height: 20px;
   color: black;
   width: 90%; }
 

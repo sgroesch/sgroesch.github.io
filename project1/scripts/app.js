@@ -1,22 +1,8 @@
 window.onload = function() {
-  console.log('hey this worked');
   makeDeck();
   deal();
   currentMove = player2;
-  trump = deckOfCards[23].suit;
-  setTrump(trump);
-  playTrick();
-  $('#scoreTeamOne').change(function(){
 
-  })
-}
-
-function blackOut(x) {
-  hold1 = $('#player'+x+'GameArea').children().detach()
-}
-
-function blackIn(x) {
-  $('#player'+x+'GameArea').append(hold1)
 }
 
 // Ask how many human and computer players and set number
@@ -55,7 +41,7 @@ var teamOneHandScore = 0;
 var teamTwoHandScore = 0;
 var teamOneTotalScore;
 var teamTwoTotalScore;
-var trump = 'hearts';
+var trump;
 var oppositeTrump;
 var maker;
 var currentMove = {
@@ -186,7 +172,7 @@ function setMaker(currentMove) {
   }
 }
 
-function setTrump(trump) {
+function setTrump() {
   var oppositeTrump;
   switch (trump) {
     case 'hearts': oppositeTrump = 'diamonds';
@@ -215,45 +201,64 @@ function setTrump(trump) {
 }
 
 function bidding(){
-  while (trump == '') {
+    $('#messageBar').hide().fadeOut('slow');
+    $('#messageBar').show().append('<button id="bidPassButton">Pass</button><button id="bidPickUpButton">Pick it Up!</button>').fadeIn('slow');
+    $('#bidPassButton').on('click', bidPass());
+    $('#bidPickUp').on('click', bidPickUp());
 
-  }
 }
 
-// function bidPass(){
-//     nextTurn();
-//  }
+function bidPass(){
+
+}
 
 function bidPickUp() {
   trump = pickUp.suit;
-  switch(dealer) {
-    case 1:
+  setTrump();
+  trumpCardToHand();
+}
+
+function trumpCardToHand() {
+  $('#player'+dealer+'HandCard1').click(function(){whichCardToSwitch(1)});
+  $('#player'+dealer+'HandCard2').click(function(){whichCardToSwitch(2)});
+  $('#player'+dealer+'HandCard3').click(function(){whichCardToSwitch(3)});
+  $('#player'+dealer+'HandCard4').click(function(){whichCardToSwitch(4)});
+  $('#player'+dealer+'HandCard5').click(function(){whichCardToSwitch(5)});
+}
+
+function whichCardToSwitch(handNumber) {
+  $('#player'+dealer+'HandCard'+handNumber).attr('src', imgUrl(deckOfCards[23]));
+  $('#middleCard').empty();
+  $('#messageBar').empty();
+  $('.card').unbind('click');
+  switch (dealer) {
+    case 1: player1.hand[(handNumber-1)] = deckOfCards[23];
       break;
-    case 2:
+    case 2: player2.hand[(handNumber-1)] = deckOfCards[23];
       break;
-    case 3:
+    case 3: player3.hand[(handNumber-1)] = deckOfCards[23];
       break;
-    case 4:
+    case 4: player4.hand[(handNumber-1)] = deckOfCards[23];
       break;
-    default: console.log('There was an error with bidPickUp');
+    default: console.log('whichCardToSwitch function messed up');
   }
 }
 
+
 // 4. Playing
 
-
-function clickHandCards(playerHandToClick){
-  $('#player'+playerHandToClick.playerOrder+'HandCard1').click(function(){
-        while ($('#player'+playerHandToClick.playerOrder+'PlayedCard').has('img').length == 0) {
-        if (allowedToPlayCard(playerHandToClick, 0) == true) {
+function clickHandCards(){
+  $('#player'+currentMove.playerOrder+'HandCard1').click(function(){
+        while ($('#player'+currentMove.playerOrder+'PlayedCard').has('img').length == 0) {
+        if (allowedToPlayCard(currentMove, 0) == true) {
             console.log('True');
-            playerHandToClick.hand[0].played = true;
-            $('#player'+playerHandToClick.playerOrder+'HandCard1').appendTo('#player'+playerHandToClick.playerOrder+'PlayedCard');
-            if (playerHandToClick.playerOrder == handStarter) {
-              firstDealtSuit = playerHandToClick.hand[0].suit;
-              currentWinningTrick = playerHandToClick.hand[0];
+            currentMove.hand[0].played = true;
+            $('#player'+currentMove.playerOrder+'HandCard1').hide().appendTo('#player'+currentMove.playerOrder+'PlayedCard').fadeIn();
+            if (currentMove.playerOrder == handStarter) {
+              firstDealtSuit = currentMove.hand[0].suit;
+              currentWinningTrick = currentMove.hand[0];
             } else {
-              newChallenger = playerHandToClick.hand[0];
+              newChallenger = currentMove.hand[0];
             }
             checkHandWinner();
             nextTurn();
@@ -262,17 +267,17 @@ function clickHandCards(playerHandToClick){
         }
         break;
   }});
-  $('#player'+playerHandToClick.playerOrder+'HandCard2').click(function(){
-        while ($('#player'+playerHandToClick.playerOrder+'PlayedCard').has('img').length == 0) {
-        if (allowedToPlayCard(playerHandToClick, 1) == true) {
+  $('#player'+currentMove.playerOrder+'HandCard2').click(function(){
+        while ($('#player'+currentMove.playerOrder+'PlayedCard').has('img').length == 0) {
+        if (allowedToPlayCard(currentMove, 1) == true) {
             console.log('True');
-            playerHandToClick.hand[1].played = true;
-            $('#player'+playerHandToClick.playerOrder+'HandCard2').appendTo('#player'+playerHandToClick.playerOrder+'PlayedCard');
-            if (playerHandToClick.playerOrder == handStarter) {
-              firstDealtSuit = playerHandToClick.hand[1].suit;
-              currentWinningTrick = playerHandToClick.hand[1];
+            currentMove.hand[1].played = true;
+            $('#player'+currentMove.playerOrder+'HandCard2').hide().appendTo('#player'+currentMove.playerOrder+'PlayedCard').fadeIn('slow');
+            if (currentMove.playerOrder == handStarter) {
+              firstDealtSuit = currentMove.hand[1].suit;
+              currentWinningTrick = currentMove.hand[1];
             } else {
-              newChallenger = playerHandToClick.hand[1];
+              newChallenger = currentMove.hand[1];
             }
             checkHandWinner();
             nextTurn();
@@ -281,17 +286,17 @@ function clickHandCards(playerHandToClick){
         }
         break;
   }});
-  $('#player'+playerHandToClick.playerOrder+'HandCard3').click(function(){
-        while ($('#player'+playerHandToClick.playerOrder+'PlayedCard').has('img').length == 0) {
-        if (allowedToPlayCard(playerHandToClick, 2) == true) {
+  $('#player'+currentMove.playerOrder+'HandCard3').click(function(){
+        while ($('#player'+currentMove.playerOrder+'PlayedCard').has('img').length == 0) {
+        if (allowedToPlayCard(currentMove, 2) == true) {
             console.log('True');
-            playerHandToClick.hand[2].played = true;
-            $('#player'+playerHandToClick.playerOrder+'HandCard3').appendTo('#player'+playerHandToClick.playerOrder+'PlayedCard');
-            if (playerHandToClick.playerOrder == handStarter) {
-              firstDealtSuit = playerHandToClick.hand[2].suit;
-              currentWinningTrick = playerHandToClick.hand[2];
+            currentMove.hand[2].played = true;
+            $('#player'+currentMove.playerOrder+'HandCard3').hide().appendTo('#player'+currentMove.playerOrder+'PlayedCard').fadeIn('slow');
+            if (currentMove.playerOrder == handStarter) {
+              firstDealtSuit = currentMove.hand[2].suit;
+              currentWinningTrick = currentMove.hand[2];
             } else {
-              newChallenger = playerHandToClick.hand[2];
+              newChallenger = currentMove.hand[2];
             }
             checkHandWinner();
             nextTurn();
@@ -300,17 +305,17 @@ function clickHandCards(playerHandToClick){
         }
         break;
   }});
-  $('#player'+playerHandToClick.playerOrder+'HandCard4').click(function(){
-        while ($('#player'+playerHandToClick.playerOrder+'PlayedCard').has('img').length == 0) {
-        if (allowedToPlayCard(playerHandToClick, 3) == true) {
+  $('#player'+currentMove.playerOrder+'HandCard4').click(function(){
+        while ($('#player'+currentMove.playerOrder+'PlayedCard').has('img').length == 0) {
+        if (allowedToPlayCard(currentMove, 3) == true) {
             console.log('True');
-            playerHandToClick.hand[3].played = true;
-            $('#player'+playerHandToClick.playerOrder+'HandCard4').appendTo('#player'+playerHandToClick.playerOrder+'PlayedCard');
-            if (playerHandToClick.playerOrder == handStarter) {
-              firstDealtSuit = playerHandToClick.hand[3].suit;
-              currentWinningTrick = playerHandToClick.hand[3];
+            currentMove.hand[3].played = true;
+            $('#player'+currentMove.playerOrder+'HandCard4').hide().appendTo('#player'+currentMove.playerOrder+'PlayedCard').fadeIn();
+            if (currentMove.playerOrder == handStarter) {
+              firstDealtSuit = currentMove.hand[3].suit;
+              currentWinningTrick = currentMove.hand[3];
             } else {
-              newChallenger = playerHandToClick.hand[3];
+              newChallenger = currentMove.hand[3];
             }
             checkHandWinner();
             nextTurn();
@@ -319,17 +324,17 @@ function clickHandCards(playerHandToClick){
         }
         break;
   }});
-  $('#player'+playerHandToClick.playerOrder+'HandCard5').click(function(){
-        while ($('#player'+playerHandToClick.playerOrder+'PlayedCard').has('img').length == 0) {
-        if (allowedToPlayCard(playerHandToClick, 4) == true) {
+  $('#player'+currentMove.playerOrder+'HandCard5').click(function(){
+        while ($('#player'+currentMove.playerOrder+'PlayedCard').has('img').length == 0) {
+        if (allowedToPlayCard(currentMove, 4) == true) {
             console.log('True');
-            playerHandToClick.hand[4].played = true;
-            $('#player'+playerHandToClick.playerOrder+'HandCard5').appendTo('#player'+playerHandToClick.playerOrder+'PlayedCard');
-            if (playerHandToClick.playerOrder == handStarter) {
-              firstDealtSuit = playerHandToClick.hand[4].suit;
-              currentWinningTrick = playerHandToClick.hand[4];
+            currentMove.hand[4].played = true;
+            $('#player'+currentMove.playerOrder+'HandCard5').hide().appendTo('#player'+currentMove.playerOrder+'PlayedCard').fadeIn();
+            if (currentMove.playerOrder == handStarter) {
+              firstDealtSuit = currentMove.hand[4].suit;
+              currentWinningTrick = currentMove.hand[4];
             } else {
-              newChallenger = playerHandToClick.hand[4];
+              newChallenger = currentMove.hand[4];
             }
             checkHandWinner();
             nextTurn();
@@ -389,25 +394,6 @@ function checkHigherCard() {
 }
 
 
-
-function nextTurnButtonIn() {
-  $('<button id="#nextTurnButton">Next Turn</button>').appendTo('#messageBar');
-  $('#nextTurnButton').on("click", nextTurn());
-}
-
-// $('#messageBar').empty();
-
-// function nextTurnButtonOut() {
-//
-//
-// }
-
-function playTrick() {
-
-    clickHandCards(currentMove);
-}
-
-
 function nextTurn() {
   switch (currentMove.playerOrder) {
     case 1: if (player2.dummy == true) {
@@ -436,12 +422,13 @@ function nextTurn() {
         break;
     default: console.log('The nextTurn function messed up')
   }
+  $('.card').unbind('click');
   counter = counter + 1;
   if (counter < 4) {
-    clickHandCards(currentMove);
+    clickHandCards();
   } else if (counter = 4) {
     trickScore();
-    renderScore();
+    renderHandScore();
   }
 }
 
@@ -455,44 +442,44 @@ function trickScore() {
 
 // 5. Keep Score and Declare winner
 
-// function addTotalScore(handsWon, goAlone, maker) {
-//   var score;
-//   if (goAlone == true) {
-//     if (maker == true) {
-//       if (handsWon == 5) {
-//         score = 4;
-//       } else if (handsWon > 2) {
-//         score = 1;
-//       } else {
-//         score = 0;
-//       }
-//     } else {
-//         if (handsWon > 2) {
-//           score = 4;
-//         } else {
-//           score = 0;
-//         }
-//     }
-//   } else {
-//     if (maker == true) {
-//       if (handsWon == 5) {
-//         score = 2;
-//       } else if (handsWon > 2) {
-//         score = 1;
-//       } else {
-//         score = 0;
-//       }
-//     } else {
-//       if (handsWon > 2) {
-//         score = 2;
-//       } else {
-//         score = 0;
-//       }
-//     }
-//   } return score;
-// }
+function addTotalScore(handsWon, goAlone, maker) {
+  var score;
+  if (goAlone == true) {
+    if (maker == true) {
+      if (handsWon == 5) {
+        score = 4;
+      } else if (handsWon > 2) {
+        score = 1;
+      } else {
+        score = 0;
+      }
+    } else {
+        if (handsWon > 2) {
+          score = 4;
+        } else {
+          score = 0;
+        }
+    }
+  } else {
+    if (maker == true) {
+      if (handsWon == 5) {
+        score = 2;
+      } else if (handsWon > 2) {
+        score = 1;
+      } else {
+        score = 0;
+      }
+    } else {
+      if (handsWon > 2) {
+        score = 2;
+      } else {
+        score = 0;
+      }
+    }
+  } return score;
+}
 
-function renderScore() {
+function renderHandScore() {
   $('#scoreTeamOne').empty()
   $('#scoreTeamTwo').empty()
   $('#scoreTeamOne').append(' '+teamOneHandScore+' ');
@@ -501,12 +488,13 @@ function renderScore() {
     $('#player'+i+'PlayedCard').empty();
   }
   setHandStarter();
+  $('#messageBar').text('The starter of the next hand is player '+currentMove.playerOrder);
   counter = 0;
   console.log(handStarter);
   console.log(currentMove);
   currentWinningTrick = {};
   newChallenger = {};
-  clickHandCards(currentMove);
+  clickHandCards();
 }
 
 function setHandStarter() {
@@ -524,24 +512,24 @@ function setHandStarter() {
     default: console.log('Did not reset hand starter');
   }
 }
-//
-// function resetHand() {
-//   player1.hand = [];
-//   player2.hand = [];
-//   player3.hand = [];
-//   player4.hand = [];
-//   teamOneHandScore = 0;
-//   teamTwoHandScore = 0;
-//   dummy = 0;
-//   goAloneTeamOne = false;
-//   goAloneTeamTwo = false;
-//   for (var i = 0; i < 24; i++) {
-//     deckOfCards[i].cardOwner = 0;
-//   }
-// }
-//
-// function resetGame() {
-//   resetHand();
-//   teamOneScore = 0;
-//   teamTwoScore = 0;
-// }
+
+function resetHand() {
+  player1.hand = [];
+  player2.hand = [];
+  player3.hand = [];
+  player4.hand = [];
+  teamOneHandScore = 0;
+  teamTwoHandScore = 0;
+  dummy = 0;
+  goAloneTeamOne = false;
+  goAloneTeamTwo = false;
+  for (var i = 0; i < 24; i++) {
+    deckOfCards[i].cardOwner = 0;
+  }
+}
+
+function resetGame() {
+  resetHand();
+  teamOneScore = 0;
+  teamTwoScore = 0;
+}
