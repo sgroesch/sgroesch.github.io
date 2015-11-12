@@ -6,7 +6,7 @@ window.onload = function() {
   newChallenger = deckOfCards[22];
   setTrump(trump);
   clickHandCards(player2);
-  $('#player2PlayedCard').change(console.log('You did It!'));
+  $('#player'+currentMove.playerOrder+'PlayedCard').change(nextTurnButton());
 }
 
 
@@ -388,20 +388,23 @@ function playHand() {
 
 function playFirstCard(dealer) {
   currentHand = hand+''
-  // while(clickHandCards() = false){
+
     clickHandCards(dealer);
   currentWinningTrick =
   firstDealtSuit = currentWinningTrick.suit;
 }
 
+function nextTurnButton() {
+  $('#nextTurnButton').on('click', nextTurn(); )
+}
+
 // function playTrick() {
-//   for (var a = 0; a < 4; a++) {
-//       var def = $
-//       clickHandCards(currentMove);
 //
+//       clickHandCards(currentMove);
+//       $('#player'currentMove.playerOrder'PlayedCard').change().append('<button id="nextTurnButton"></button>');
 //       nextTurn();
 //
-// }}
+// }
 
 
 function nextTurn(){
