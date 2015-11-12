@@ -480,10 +480,10 @@ function addTotalScore(handsWon, goAlone, maker) {
 }
 
 function renderHandScore() {
-  $('#scoreTeamOne').empty()
-  $('#scoreTeamTwo').empty()
-  $('#scoreTeamOne').append(' '+teamOneHandScore+' ');
-  $('#scoreTeamTwo').append(' '+teamTwoHandScore+' ');
+  $('#scoreHandTeamOne').empty()
+  $('#scoreHandTeamTwo').empty()
+  $('#scoreHandTeamOne').append(' '+teamOneHandScore+' ');
+  $('#scoreHandTeamTwo').append(' '+teamTwoHandScore+' ');
   for (var i = 1; i < 5; i++) {
     $('#player'+i+'PlayedCard').empty();
   }
