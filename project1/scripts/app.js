@@ -41,7 +41,6 @@ var teamOneTotalScore = 0;
 var teamTwoTotalScore = 0;
 var trump;
 var oppositeTrump;
-var maker;
 var currentMove = {
   playerOrder: null,
   hand: [null, null, null, null, null],
@@ -224,10 +223,10 @@ function setTrump() {
 function bidding(){
     if (bidStarter != handStarter || pass == 0) {
       console.log('bidding worked')
-    $('#messageBar').hide().fadeOut('slow');
-    $('#messageBar').show().append('Player '+bidStarter+'\'s turn to bid: <button id="bidPassButton">Pass</button>  <button id="bidPickUpButton">Pick it Up!</button>').fadeIn('slow');
-    $('#bidPassButton').on('click', function(){bidPass()});
-    $('#bidPickUpButton').on('click', function(){bidPickUp()});
+      $('#messageBar').hide().fadeOut('slow');
+      $('#messageBar').show().append('Player '+bidStarter+'\'s turn to bid: <button id="bidPassButton">Pass</button>  <button id="bidPickUpButton">Pick it Up!</button>').fadeIn('slow');
+      $('#bidPassButton').on('click', function(){bidPass()});
+      $('#bidPickUpButton').on('click', function(){bidPickUp()});
   }
 }
 
