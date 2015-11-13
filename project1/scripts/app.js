@@ -639,6 +639,8 @@ function resetHand() {
   player4.dummy = false;
   teamOneHandScore = 0;
   teamTwoHandScore = 0;
+  makerTeamOne = false;
+  makerTeamTwo = false;
   $('img').detach();
 }
 
