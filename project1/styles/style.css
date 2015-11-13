@@ -161,7 +161,6 @@ body {
 .scoring {
   width: 20%;
   float: left;
-  border: 2px solid white;
   margin-left: 2%;
   margin-right: 2%;
   text-align: center; }
@@ -170,34 +169,41 @@ body {
   clear: both; }
 
 #scoreHandTeamOne {
-  height: 35px;
+  height: 36px;
   font-size: 32px;
   clear: both; }
 
 #scoreHandTeamTwo {
-  height: 35px;
+  height: 36px;
   font-size: 32px; }
 
 #scoreTeamOne {
-  height: 35px;
+  height: 36px;
   font-size: 32px; }
 
 #scoreTeamTwo {
-  height: 35px;
+  height: 36px;
   font-size: 32px; }
 
 #messageBarTitle {
-  border: 1px solid black;
-  width: 90%;
+  width: 10%;
   font-size: 20px;
-  height: 22px; }
+  height: 36px;
+  float: left;
+  padding-top: 5px;
+  padding-left: 10px; }
 
 #messageBar {
   border: 1px solid black;
+  float: left;
+  width: 75%;
+  font-size: 20px;
+  height: 36px;
+  padding-top: 5px; }
+
+footer {
+  text-align: right;
   clear: both;
-  height: 20px;
-  width: 90%;
-  font-size: 32px;
-  height: 35px; }
+  float: right; }
 
 /*# sourceMappingURL=style.css.map */

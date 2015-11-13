@@ -10,7 +10,7 @@ $gameWidth: 90%;
 $font-size: 16px;
 $cardmargin: 2px;
 $scorewidth: 20%;
-$scoreheight: 35px;
+$scoreheight: 36px;
 $scorefontsize: 32px;
 
 body {
@@ -249,7 +249,6 @@ body {
 .scoring {
   width: $scorewidth;
   float: left;
-  border: 2px solid white;
   margin-left: 2%;
   margin-right: 2%;
   text-align: center;
@@ -281,19 +280,27 @@ body {
 }
 
 #messageBarTitle {
-  border: 1px solid black;
-  width: $gameWidth;
+  width: 10%;
   font-size: 20px;
-  height: 22px;
+  height: $scoreheight;
+  float: left;
+  padding-top: 5px;
+  padding-left: 10px;
 }
 
 #messageBar {
   border: 1px solid black;
-  clear: both;
-  height: 20px;
-  width: $gameWidth;
-  font-size: $scorefontsize;
+  float: left;
+  width: 75%;
+  font-size: 20px;
   height: $scoreheight;
+  padding-top: 5px;
+}
+
+footer {
+  text-align: right;
+  clear: both;
+  float: right;
 }
 
 
