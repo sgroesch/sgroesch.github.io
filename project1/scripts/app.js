@@ -3,12 +3,6 @@ playGame();
 
 }
 
-// Ask how many human and computer players and set number
-
-// Ask names for players and set. Set generic Computer names
-
-// Ask what teammate configuration is and set
-
 // Make Deck and deal cards
 var deckOfCards = [];
 var player1 = {
@@ -39,6 +33,8 @@ var teamOneHandScore = 0;
 var teamTwoHandScore = 0;
 var teamOneTotalScore = 0;
 var teamTwoTotalScore = 0;
+var makerTeamOne = false;
+var makerTeamTwo = false;
 var trump;
 var oppositeTrump;
 var currentMove = {
@@ -152,11 +148,10 @@ function setCurrentMove() {
       break;
     default: console.log('setCurrentMove function messed up');
   }
-  handStarter = dealer + 1;
-  bidStarter = dealer + 1;
+  handStarter = (dealer%4 + 1);
+  bidStarter = (dealer%4 + 1);
   pass = 0;
 }
-
 
 function nextDealer() {
   dealer = (dealer%4 + 1);
@@ -227,6 +222,10 @@ function bidding(){
       $('#messageBar').show().append('Player '+bidStarter+'\'s turn to bid: <button id="bidPassButton">Pass</button>  <button id="bidPickUpButton">Pick it Up!</button>').fadeIn('slow');
       $('#bidPassButton').on('click', function(){bidPass()});
       $('#bidPickUpButton').on('click', function(){bidPickUp()});
+  } else {
+    pass = 0;
+
+    renderTotalScore();
   }
 }
 
@@ -365,7 +364,6 @@ function checkHigherCard() {
   }
 }
 
-
 function nextTurn() {
   switch (currentMove.playerOrder) {
     case 1: if (player2.dummy == true) {
@@ -465,8 +463,8 @@ function renderTotalScore() {
     $('#scoreTeamTwo').empty();
     $('#scoreTeamOne').append(' '+teamOneTotalScore+' ');
     $('#scoreTeamTwo').append(' '+teamTwoTotalScore+' ');
-    resetHand();
     nextDealer();
+    resetHand();
     if ((teamOneTotalScore > 9 && (teamOneTotalScore - teamTwoTotalScore) > 1) || (teamTwoTotalScore > 9 && (teamTwoTotalScore - teamOneTotalScore) > 1) ) {
       gameOver();
     } else {
@@ -527,20 +525,18 @@ function resetHand() {
   player4.dummy = false;
   teamOneHandScore = 0;
   teamTwoHandScore = 0;
+  $('img').detach();
 }
 
 function gameOver() {
   if (teamOneTotalScore > teamTwoTotalScore) {
-    $('#messageBar').append('Team One Wins!')
+    $('#messageBar').append('Team One Wins!    <button id="playAgain">Play Again?</button>')
   } else if (teamTwoTotalScore > teamOneTotalScore) {
-    $('#messageBar').append('Team Two Wins!')
+    $('#messageBar').append('Team Two Wins!    <button id="playAgain">Play Again?</button>')
   } else {
-    console.log('There was an error with gaveOver function')
+    console.log('There was an error with gameOver function')
   }
-}
-
-function resetGame() {
-  resetHand();
-  teamOneTotalScore = 0;
-  teamTwoTotalScore = 0;
+    $('#playAgain').click(function() {
+        location.reload();
+      });
 }

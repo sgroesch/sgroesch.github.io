@@ -3,8 +3,11 @@ body {
   color: white;
   background-image: url("dark_embroidery.png"); }
 
-#header {
-  color: black; }
+header {
+  font-size: 32px;
+  width: 90%;
+  text-align: center;
+  margin-bottom: 10px; }
 
 #pregame {
   color: black; }
@@ -73,7 +76,8 @@ body {
   float: right;
   clear: right;
   height: 400px;
-  width: 54px; }
+  width: 54px;
+  margin-right: 5px; }
 
 #player2GameArea img {
   margin-top: 5px;
@@ -81,7 +85,8 @@ body {
 
 #player2GameAreaName {
   height: 16px;
-  float: right; }
+  float: right;
+  margin-right: 5px; }
 
 #player2HandCard1 {
   clear: both;
@@ -106,7 +111,8 @@ body {
 #player3GameArea {
   height: 78px;
   margin-right: 30%;
-  float: left; }
+  float: left;
+  margin-top: 5px; }
 
 #player3GameArea img {
   margin-left: 5px;
@@ -115,13 +121,15 @@ body {
 #player3GameAreaName {
   height: 16px;
   float: left;
-  margin-left: 30%; }
+  margin-left: 30%;
+  margin-top: 5px; }
 
 #player4GameArea {
   float: left;
   clear: both;
   height: 400px;
-  width: 54px; }
+  width: 54px;
+  margin-left: 5px; }
 
 #player4GameArea img {
   margin-top: 5px;
@@ -130,7 +138,8 @@ body {
 #player4GameAreaName {
   height: 16px;
   clear: both;
-  float: left; }
+  float: left;
+  margin-left: 5px; }
 
 #player4HandCard1 {
   clear: both;
@@ -201,6 +210,8 @@ body {
 footer {
   text-align: right;
   clear: both;
-  float: right; }
+  float: right;
+  margin-bottom: 10px;
+  padding-right: 150px; }
 
 /*# sourceMappingURL=style.css.map */

@@ -19,8 +19,11 @@ body {
   background-image: url('dark_embroidery.png');
 }
 
-#header {
-  color: black;
+header {
+  font-size: 32px;
+  width: $gameWidth;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 #pregame {
@@ -98,31 +101,12 @@ body {
   margin-right: $cardmargin;
 }
 
-#player1HandCard1 {
-
-}
-
-#player1HandCard2 {
-
-}
-
-#player1HandCard3 {
-
-}
-
-#player1HandCard4 {
-
-}
-
-#player1HandCard5 {
-
-}
-
 #player2GameArea {
   float: right;
   clear: right;
   height: $player24height;
   width: 54px;
+  margin-right: 5px;
 }
 
 #player2GameArea img {
@@ -133,6 +117,7 @@ body {
 #player2GameAreaName {
   height: $font-size;
   float: right;
+  margin-right: 5px;
 }
 
 #player2HandCard1 {
@@ -164,6 +149,7 @@ body {
   height: $player13height;
   margin-right: $player13sidemargins;
   float: left;
+  margin-top: 5px;
 }
 
 #player3GameArea img {
@@ -175,26 +161,7 @@ body {
   height: $font-size;
   float: left;
   margin-left: $player13sidemargins;
-}
-
-#player3HandCard1 {
-
-}
-
-#player3HandCard2 {
-
-}
-
-#player3HandCard3 {
-
-}
-
-#player3HandCard4 {
-
-}
-
-#player3HandCard5 {
-
+  margin-top: 5px;
 }
 
 #player4GameArea {
@@ -202,6 +169,7 @@ body {
   clear: both;
   height: $player24height;
   width: 54px;
+  margin-left: 5px;
 }
 
 #player4GameArea img {
@@ -213,6 +181,7 @@ body {
   height: $font-size;
   clear: both;
   float: left;
+  margin-left: 5px;
 }
 
 #player4HandCard1 {
@@ -299,11 +268,6 @@ footer {
   text-align: right;
   clear: both;
   float: right;
+  margin-bottom: 10px;
+  padding-right: 150px;
 }
-
-
-
-
-// @media {
-//
-// }
