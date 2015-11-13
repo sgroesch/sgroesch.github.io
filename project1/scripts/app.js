@@ -3,7 +3,7 @@ playGame();
 
 }
 
-// Make Deck and deal cards
+// Setting variables to initial values
 var deckOfCards = [];
 var player1 = {
   playerOrder: 1,
@@ -52,6 +52,18 @@ var counter = 0;
 var bidStarter;
 var pass = 0;
 
+// Main game function
+function playGame() {
+  makeDeck();
+  deal();
+  nextDealer();
+  reRender();
+  changer(dealer);
+  setCurrentMove();
+  bidding();
+}
+
+// Makes the deck
 function makeDeck() {
   for (var i = 0; i < 24; i++) {
       deckOfCards[i]= {played: false};
@@ -78,6 +90,7 @@ function makeDeck() {
   }
   };
 
+// Shuffles the deck
 function shuffle() {
   for (var i = 0; i < deckOfCards.length; i++) {
       deckOfCards[i].ranNum = Math.random();
@@ -87,6 +100,7 @@ function shuffle() {
     });
 }
 
+// Shuffles and then deals deck and adds cardOwner attribute
 function deal() {
       shuffle();
       for (var i = 0; i < 5; i++) {
@@ -115,17 +129,8 @@ function deal() {
       renderPickUp(pickUp)
 }
 
-function playGame() {
-  makeDeck();
-  deal();
-  nextDealer();
-  reRender();
-  changer(dealer);
-  setCurrentMove();
-  bidding();
-}
-// Function to show background of card
 
+// Functions to show background of cards at deal
 function imgUrl (card) {
   return 'styles/cards/' + card.rank + '_of_' + card.suit + '.png';
 }
@@ -138,7 +143,12 @@ function renderHands(whichPlayersHand, inc) {
   $('#player'+whichPlayersHand.playerOrder+'GameArea').append('<img class="card" id="player'+whichPlayersHand.playerOrder+'HandCard'+(inc + 1)+'" src='+imgUrl(whichPlayersHand.hand[inc])+'></img>');
 }
 
-// Bidding: Pick up to set trump
+// Set dealer to next value
+function nextDealer() {
+  dealer = (dealer%4 + 1);
+}
+
+// Sets first move and other variables to person after dealer
 function setCurrentMove() {
   switch (dealer) {
     case 1: currentMove = player2;
@@ -156,68 +166,26 @@ function setCurrentMove() {
   pass = 0;
 }
 
-function nextDealer() {
-  dealer = (dealer%4 + 1);
-}
+// Theoretically adds going alone and dummys to the game. Next feature to implement
+// function setGoingAloneAndDummy(currentMove) {
+//   switch (currentMove.playerOrder) {
+//     case 1: player1.goAlone = true;
+//             player3.dummy = true;
+//       break;
+//     case 2: player2.goAlone = true;
+//             player4.dummy = true;
+//       break;
+//     case 3: player3.goAlone = true;
+//             player1.dummy = true;
+//       break;
+//     case 4: player4.goAlone = true;
+//             player2.dummy = true;
+//       break;
+//     default: console.log('Setting the goAlone function messed up');
+//   }
+// }
 
-function setGoingAloneAndDummy(currentMove) {
-  switch (currentMove.playerOrder) {
-    case 1: player1.goAlone = true;
-            player3.dummy = true;
-      break;
-    case 2: player2.goAlone = true;
-            player4.dummy = true;
-      break;
-    case 3: player3.goAlone = true;
-            player1.dummy = true;
-      break;
-    case 4: player4.goAlone = true;
-            player2.dummy = true;
-      break;
-    default: console.log('Setting the goAlone function messed up');
-  }
-}
-
-function setMaker() {
-  if (bidStarter == 1 || bidStarter == 3){
-    makerTeamOne = true;
-    makerTeamTwo = false;
-  } else if (bidStarter == 2 || bidStarter == 4){
-    makerTeamOne = false;
-    makerTeamTwo = true;
-  }
-}
-
-function setTrump() {
-  var oppositeTrump;
-  switch (trump) {
-    case 'hearts': oppositeTrump = 'diamonds';
-      break;
-    case 'diamonds': oppositeTrump = 'hearts';
-      break;
-    case 'spades': oppositeTrump = 'clubs';
-      break;
-    case 'clubs': oppositeTrump = 'spades';
-      break;
-    default: console.log('There was an error setting oppositeTrump');
-  }
-  $('#currentTrump').append(''+trump.toUpperCase());
-  for (var i = 0; i < 24; i++) {
-    if (deckOfCards[i].suit == trump && deckOfCards[i].rank == 'jack') {
-      deckOfCards[i].trump = true;
-      deckOfCards[i].rankNum = 8;
-    } else if (deckOfCards[i].suit == trump) {
-      deckOfCards[i].trump = true;
-    } else if (deckOfCards[i].suit == oppositeTrump && deckOfCards[i].rank == 'jack') {
-      deckOfCards[i].trump = true;
-      deckOfCards[i].rankNum = 7;
-      deckOfCards[i].suit = trump;
-    } else {
-      deckOfCards[i].trump = false;
-    }
-  }
-}
-
+// The first function for bidding. Also eventually starts the hand
 function bidding(){
   reRender();
   changer(bidStarter);
@@ -238,16 +206,7 @@ function bidding(){
   }
 }
 
-function setTrumpFromButton(givenTrump) {
-      trump = givenTrump;
-      $('#messageBar').empty();
-      setMaker();
-      setTrump();
-      reRender();
-      changer(handStarter);
-      clickHandCards();
-}
-
+// Function to run if player passes
 function bidPass(){
     bidStarter = (bidStarter%4 + 1);
     pass = pass + 1;
@@ -255,6 +214,7 @@ function bidPass(){
     bidding();
 }
 
+// Function to run if player picks up. Runs the trumpCardToHand function at end
 function bidPickUp() {
   $('#messageBar').empty();
   trump = pickUp.suit;
@@ -265,6 +225,18 @@ function bidPickUp() {
   trumpCardToHand();
 }
 
+// Function to set trump to a user input after 4 passes
+function setTrumpFromButton(givenTrump) {
+      trump = givenTrump;
+      $('#messageBar').empty();
+      setMaker();
+      setTrump();
+      reRender();
+      changer(handStarter);
+      clickHandCards();
+}
+
+//Two functions for switching middle card to hand and starting the first trick
 function trumpCardToHand() {
   $('#messageBar').append('Player '+dealer+', choose a card to discard')
   $('#player'+dealer+'HandCard1').click(function(){whichCardToSwitch(1)});
@@ -299,9 +271,51 @@ function whichCardToSwitch(handNumber) {
   clickHandCards();
 }
 
+// Sets the maker when trump is declared
+function setMaker() {
+  if (bidStarter == 1 || bidStarter == 3){
+    makerTeamOne = true;
+    makerTeamTwo = false;
+  } else if (bidStarter == 2 || bidStarter == 4){
+    makerTeamOne = false;
+    makerTeamTwo = true;
+  }
+}
 
-// 4. Playing
+// Sets trump attribute on all the cards when it is declared
+function setTrump() {
+  var oppositeTrump;
+  switch (trump) {
+    case 'hearts': oppositeTrump = 'diamonds';
+      break;
+    case 'diamonds': oppositeTrump = 'hearts';
+      break;
+    case 'spades': oppositeTrump = 'clubs';
+      break;
+    case 'clubs': oppositeTrump = 'spades';
+      break;
+    default: console.log('There was an error setting oppositeTrump');
+  }
+  $('#currentTrump').append(''+trump.toUpperCase());
+  for (var i = 0; i < 24; i++) {
+    if (deckOfCards[i].suit == trump && deckOfCards[i].rank == 'jack') {
+      deckOfCards[i].trump = true;
+      deckOfCards[i].rankNum = 8;
+    } else if (deckOfCards[i].suit == trump) {
+      deckOfCards[i].trump = true;
+    } else if (deckOfCards[i].suit == oppositeTrump && deckOfCards[i].rank == 'jack') {
+      deckOfCards[i].trump = true;
+      deckOfCards[i].rankNum = 7;
+      deckOfCards[i].suit = trump;
+    } else {
+      deckOfCards[i].trump = false;
+    }
+  }
+}
 
+// Playing the hand
+
+// Two functions to click the desired card to play
 function clickHandCards(){
   $('#messageBar').append('Player '+currentMove.playerOrder+', choose a card');
   $('#player'+currentMove.playerOrder+'HandCard1').click(function(){
@@ -338,6 +352,7 @@ function dry(cardNum){
   }
 }
 
+// Checks if the chosen card is able to be played within the rules
 function allowedToPlayCard(canPlaceThisCard, whichCard){
     if (canPlaceThisCard.playerOrder == handStarter) {
       return true;
@@ -350,6 +365,7 @@ function allowedToPlayCard(canPlaceThisCard, whichCard){
     }
 }
 
+// Checks if the player's hand has a specific suit in it
 function haveDealtSuitInHand(handToCheck) {
     for (var i = 0; i < 5; i++) {
       if (handToCheck.hand[i].suit == firstDealtSuit && handToCheck.hand[i].played == false) {
@@ -358,6 +374,7 @@ function haveDealtSuitInHand(handToCheck) {
     } return false;
 }
 
+// Next three functions compare two cards at a time and set the winner for the next card to be played
 function checkHandWinner() {
   if (currentWinningTrick.trump == true && newChallenger.trump == false) {
     currentWinningTrick = currentWinningTrick;
@@ -386,6 +403,7 @@ function checkHigherCard() {
   }
 }
 
+// Moves the currentMove variable to the next player and plays another hand or renders the trick score (Effectively ending the hand)
 function nextTurn() {
   switch (currentMove.playerOrder) {
     case 1: if (player2.dummy == true) {
@@ -426,12 +444,30 @@ function nextTurn() {
   counter = counter + 1;
   if (counter < 4) {
     clickHandCards();
-  } else if (counter = 4) {
+  } else if (counter == 4) {
     trickScore();
     renderHandScore();
   }
 }
 
+// Sets the starter for the next trick based on who won the last one
+function setHandStarter() {
+  handStarter = currentWinningTrick.cardOwner;
+  firstDealtSuit = '';
+  switch (handStarter) {
+    case 1: currentMove = player1;
+      break;
+    case 2: currentMove = player2;
+        break;
+    case 3: currentMove = player3;
+        break;
+    case 4: currentMove = player4;
+        break;
+    default: console.log('Did not reset hand starter');
+  }
+}
+
+// Next two functions set every non played card that isn't in the current player's hand to the background image of the back of the card
 function change(imgToFlip) {
       $(imgToFlip).attr('src','styles/cards/back.png')
 }
@@ -474,6 +510,7 @@ function changer(openHand) {
   }
 }
 
+// Rerenders every card on the board again. Used in conjunction with the changer function
 function reRender() {
     for (var i = 0; i < 5; i++) {
         $('#player1HandCard'+(i+1)).attr('src','styles/cards/'+player1.hand[i].rank+'_of_'+player1.hand[i].suit+'.png')
@@ -483,7 +520,9 @@ function reRender() {
     }
 }
 
+// Keep Score and Declare winner
 
+// Counts the number of tricks each team has won
 function trickScore() {
   if (currentWinningTrick.cardOwner == 1 || currentWinningTrick.cardOwner == 3) {
     teamOneHandScore = teamOneHandScore + 1;
@@ -492,8 +531,32 @@ function trickScore() {
   }
 }
 
-// 5. Keep Score and Declare winner
+// Renders the hand score after each trick. Once five tricks are played it runs renderTotalScore
+function renderHandScore() {
+  $('#scoreHandTeamOne').empty()
+  $('#scoreHandTeamTwo').empty()
+  $('#scoreHandTeamOne').append(' '+teamOneHandScore+' ');
+  $('#scoreHandTeamTwo').append(' '+teamTwoHandScore+' ');
+  for (var i = 1; i < 5; i++) {
+    $('#player'+i+'PlayedCard').empty();
+  }
+  setHandStarter();
+  counter = 0;
+  reRender();
+  changer(handStarter);
+  console.log(handStarter);
+  console.log(currentMove);
+  currentWinningTrick = {};
+  newChallenger = {};
+  if ((teamOneHandScore + teamTwoHandScore) == 5) {
+    $('#currentTrump').empty();
+    renderTotalScore();
+  } else {
+    clickHandCards();
+  }
+}
 
+// Adds up total score based on the maker, going alone and amount of tricks won, then renders the total score, resets hand and checks to see if the game is over
 function renderTotalScore() {
   if (makerTeamOne == true) {
     if (player1.goAlone == true || player3.goAlone == true) {
@@ -553,46 +616,7 @@ function renderTotalScore() {
     }
 }
 
-function renderHandScore() {
-  $('#scoreHandTeamOne').empty()
-  $('#scoreHandTeamTwo').empty()
-  $('#scoreHandTeamOne').append(' '+teamOneHandScore+' ');
-  $('#scoreHandTeamTwo').append(' '+teamTwoHandScore+' ');
-  for (var i = 1; i < 5; i++) {
-    $('#player'+i+'PlayedCard').empty();
-  }
-  setHandStarter();
-  counter = 0;
-  reRender();
-  changer(handStarter);
-  console.log(handStarter);
-  console.log(currentMove);
-  currentWinningTrick = {};
-  newChallenger = {};
-  if ((teamOneHandScore + teamTwoHandScore) == 5) {
-    $('#currentTrump').empty();
-    renderTotalScore();
-  } else {
-    clickHandCards();
-  }
-}
-
-function setHandStarter() {
-  handStarter = currentWinningTrick.cardOwner;
-  firstDealtSuit = '';
-  switch (handStarter) {
-    case 1: currentMove = player1;
-      break;
-    case 2: currentMove = player2;
-        break;
-    case 3: currentMove = player3;
-        break;
-    case 4: currentMove = player4;
-        break;
-    default: console.log('Did not reset hand starter');
-  }
-}
-
+// Resets the hands and variables used each hand. Runs in render total score function
 function resetHand() {
   player1.hand = [];
   player2.hand = [];
@@ -611,6 +635,7 @@ function resetHand() {
   $('img').detach();
 }
 
+// Determines a winner and outputs the result once renderTotalScore has determined that there is a winner
 function gameOver() {
   if (teamOneTotalScore > teamTwoTotalScore) {
     $('#messageBar').append('Team One Wins!    <button id="playAgain">Play Again?</button>')
