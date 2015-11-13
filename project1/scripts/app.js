@@ -338,7 +338,7 @@ function dry(cardNum){
       currentMove.hand[(cardNum - 1)].played = true;
       $('#player'+currentMove.playerOrder+'HandCard'+cardNum).hide().appendTo('#player'+currentMove.playerOrder+'PlayedCard').fadeIn();
       if (currentMove.playerOrder == handStarter) {
-        if (currentMove.hand[(cardNum - 1)].suit == oppositeTrump && currentMove.hand[(cardNum - 1)].rank == 'jack') {
+        if (currentMove.hand[(cardNum - 1)].trump == true) {
               firstDealtSuit = trump;
         } else {
               firstDealtSuit = currentMove.hand[(cardNum - 1)].suit;
@@ -360,7 +360,7 @@ function dry(cardNum){
 function allowedToPlayCard(canPlaceThisCard, whichCard){
     if (canPlaceThisCard.playerOrder == handStarter) {
       return true;
-    } else if (canPlaceThisCard.hand[whichCard].suit == firstDealtSuit) {
+    } else if ((canPlaceThisCard.hand[whichCard].suit == firstDealtSuit || (canPlaceThisCard.hand[whichCard].trump == true && firstDealtSuit == trump))) {
       return true;
     } else if (haveDealtSuitInHand(canPlaceThisCard) == false) {
       return true;
@@ -372,9 +372,10 @@ function allowedToPlayCard(canPlaceThisCard, whichCard){
 // Checks if the player's hand has a specific suit in it
 function haveDealtSuitInHand(handToCheck) {
     for (var i = 0; i < 5; i++) {
-      if (handToCheck.hand[i].suit == firstDealtSuit && handToCheck.hand[i].played == false) {
+      if (handToCheck.hand[i].suit == firstDealtSuit && handToCheck.hand[i].played == false && (handToCheck.hand[i].suit != oppositeTrump && handToCheck.hand[i].rank != 'jack')) {
         return true;
-      } else if (handToCheck.hand[i].suit == oppositeTrump && handToCheck.hand[i].rank == 'jack' && firstDealtSuit == trump && handToCheck.hand[i].played == false) {
+      } else if (handToCheck.hand[i].played == false && ((handToCheck.hand[i].trump == true && firstDealtSuit == trump) || (handToCheck.hand[i].trump == true && firstDealtSuit == oppositeTrump && handToCheck.hand[i].suit == oppositeTrump))) {
+        console.log('Log 2')
         return true;
       }
     } return false;
