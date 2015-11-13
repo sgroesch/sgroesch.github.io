@@ -167,6 +167,7 @@ function setCurrentMove() {
 }
 
 // Theoretically adds going alone and dummys to the game. Next feature to implement
+
 // function setGoingAloneAndDummy(currentMove) {
 //   switch (currentMove.playerOrder) {
 //     case 1: player1.goAlone = true;
@@ -306,7 +307,6 @@ function setTrump() {
     } else if (deckOfCards[i].suit == oppositeTrump && deckOfCards[i].rank == 'jack') {
       deckOfCards[i].trump = true;
       deckOfCards[i].rankNum = 7;
-      deckOfCards[i].suit = trump;
     } else {
       deckOfCards[i].trump = false;
     }
@@ -338,7 +338,11 @@ function dry(cardNum){
       currentMove.hand[(cardNum - 1)].played = true;
       $('#player'+currentMove.playerOrder+'HandCard'+cardNum).hide().appendTo('#player'+currentMove.playerOrder+'PlayedCard').fadeIn();
       if (currentMove.playerOrder == handStarter) {
-        firstDealtSuit = currentMove.hand[(cardNum - 1)].suit;
+        if (currentMove.hand[(cardNum - 1)].suit == oppositeTrump && currentMove.hand[(cardNum - 1)].rank == 'jack') {
+              firstDealtSuit = trump;
+        } else {
+              firstDealtSuit = currentMove.hand[(cardNum - 1)].suit;
+        }
         currentWinningTrick = currentMove.hand[(cardNum - 1)];
       } else {
         newChallenger = currentMove.hand[(cardNum - 1)];
@@ -369,6 +373,8 @@ function allowedToPlayCard(canPlaceThisCard, whichCard){
 function haveDealtSuitInHand(handToCheck) {
     for (var i = 0; i < 5; i++) {
       if (handToCheck.hand[i].suit == firstDealtSuit && handToCheck.hand[i].played == false) {
+        return true;
+      } else if (handToCheck.hand[i].suit == oppositeTrump && handToCheck.hand[i].rank == 'jack' && firstDealtSuit == trump && handToCheck.hand[i].played == false) {
         return true;
       }
     } return false;
