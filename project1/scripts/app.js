@@ -1,8 +1,5 @@
 window.onload = function() {
-  makeDeck();
-  deal();
-  currentMove = player2;
-  bidding();
+playGame();
 
 }
 
@@ -40,8 +37,8 @@ var player4 = {
   controller: null};
 var teamOneHandScore = 0;
 var teamTwoHandScore = 0;
-var teamOneTotalScore;
-var teamTwoTotalScore;
+var teamOneTotalScore = 0;
+var teamTwoTotalScore = 0;
 var trump;
 var oppositeTrump;
 var maker;
@@ -55,9 +52,9 @@ var dealer = 1;
 var firstDealtSuit;
 var currentWinningTrick;
 var newChallenger = {trump: false};
-var handStarter = 2;
+var handStarter;
 var counter = 0;
-var bidStarter = 2;
+var bidStarter;
 var pass = 0;
 
 function makeDeck() {
@@ -99,13 +96,9 @@ function deal() {
       shuffle();
       for (var i = 0; i < 5; i++) {
         deckOfCards[i].cardOwner = 1;
-        deckOfCards[i].cardOwnerOrder = i+1;
         deckOfCards[i+5].cardOwner = 2;
-        deckOfCards[i+5].cardOwnerOrder = i+1;
         deckOfCards[i+10].cardOwner = 3;
-        deckOfCards[i+10].cardOwnerOrder = i+1;
         deckOfCards[i+15].cardOwner = 4;
-        deckOfCards[i+15].cardOwnerOrder = i+1;
       }
       player1.hand = [deckOfCards[0], deckOfCards[1], deckOfCards[2], deckOfCards[3], deckOfCards[4]];
       for (var i = 0; i < player1.hand.length; i++) {
@@ -127,6 +120,12 @@ function deal() {
       renderPickUp(pickUp)
 }
 
+function playGame() {
+  makeDeck();
+  deal();
+  setCurrentMove();
+  bidding();
+}
 // Function to show background of card
 
 function imgUrl (card) {
@@ -142,6 +141,23 @@ function renderHands(whichPlayersHand, inc) {
 }
 
 // Bidding: Pick up to set trump, pass,
+function setCurrentMove() {
+  switch (dealer) {
+    case 1: currentMove = player2;
+      break;
+    case 2: currentMove = player3;
+      break;
+    case 3: currentMove = player4;
+      break;
+    case 4: currentMove = player1;
+      break;
+    default: console.log('setCurrentMove function messed up');
+  }
+  handStarter = dealer + 1;
+  bidStarter = dealer + 1;
+  pass = 0;
+}
+
 
 function nextDealer() {
   dealer = (dealer%4 + 1);
@@ -165,11 +181,11 @@ function setGoingAloneAndDummy(currentMove) {
   }
 }
 
-function setMaker(currentMove) {
-  if (currentMove == 1 || currentMove == 3){
+function setMaker() {
+  if (bidStarter == 1 || bidStarter == 3){
     makerTeamOne = true;
     makerTeamTwo = false;
-  } else if (currentMove == 2 || currentMove == 4){
+  } else if (bidStarter == 2 || bidStarter == 4){
     makerTeamOne = false;
     makerTeamTwo = true;
   }
@@ -188,6 +204,7 @@ function setTrump() {
       break;
     default: console.log('There was an error setting oppositeTrump');
   }
+  $('#currentTrump').append(''+trump.toUpperCase());
   for (var i = 0; i < 24; i++) {
     if (deckOfCards[i].suit == trump && deckOfCards[i].rank == 'jack') {
       deckOfCards[i].trump = true;
@@ -224,6 +241,8 @@ function bidPass(){
 function bidPickUp() {
   $('#messageBar').empty();
   trump = pickUp.suit;
+  setMaker();
+
   setTrump();
   trumpCardToHand();
 }
@@ -396,41 +415,64 @@ function trickScore() {
 
 // 5. Keep Score and Declare winner
 
-function addTotalScore(handsWon, goAlone, maker) {
-  var score;
-  if (goAlone == true) {
-    if (maker == true) {
-      if (handsWon == 5) {
-        score = 4;
-      } else if (handsWon > 2) {
-        score = 1;
+function renderTotalScore() {
+  if (makerTeamOne == true) {
+    if (player1.goAlone == true || player3.goAlone == true) {
+      if (teamOneHandScore == 5) {
+        teamOneTotalScore = teamOneTotalScore + 4;
+      } else if (teamOneHandScore > 2) {
+        teamOneTotalScore = teamOneTotalScore + 1;
+      } else if (player2.goAlone == true || player4.goAlone == true) {
+        teamTwoTotalScore = teamTwoTotalScore + 4;
       } else {
-        score = 0;
+        teamTwoTotalScore = teamTwoTotalScore + 2;
       }
     } else {
-        if (handsWon > 2) {
-          score = 4;
+        if (teamOneHandScore == 5) {
+          teamOneTotalScore = teamOneTotalScore + 2;
+        } else if (teamOneHandScore > 2){
+          teamOneTotalScore = teamOneTotalScore + 1;
         } else {
-          score = 0;
+          teamTwoTotalScore = teamTwoTotalScore + 2;
         }
     }
-  } else {
-    if (maker == true) {
-      if (handsWon == 5) {
-        score = 2;
-      } else if (handsWon > 2) {
-        score = 1;
+  } else if (makerTeamTwo == true) {
+    if (player2.goAlone == true || player4.goAlone == true) {
+      if (teamTwoHandScore == 5) {
+        teamTwoTotalScore = teamTwoTotalScore + 4;
+      } else if (teamTwoHandScore > 2) {
+        teamTwoTotalScore = teamTwoTotalScore + 1;
+      } else if (player1.goAlone == true || player3.goAlone == true){
+        teamOneTotalScore = teamOneTotalScore + 4;
       } else {
-        score = 0;
+        teamOneTotalScore = teamOneTotalScore + 2;
       }
     } else {
-      if (handsWon > 2) {
-        score = 2;
-      } else {
-        score = 0;
+        if (teamTwoHandScore == 5) {
+          teamTwoTotalScore = teamTwoTotalScore + 2;
+        } else if (teamTwoHandScore > 2){
+          teamTwoTotalScore = teamTwoTotalScore + 1;
+        } else {
+          teamOneTotalScore = teamOneTotalScore + 2;
+        }
       }
+  } else {
+    console.log('There was an error adding the Total Score')
     }
-  } return score;
+    $('#messageBar').empty();
+    $('#scoreHandTeamOne').empty();
+    $('#scoreHandTeamTwo').empty();
+    $('#scoreTeamOne').empty();
+    $('#scoreTeamTwo').empty();
+    $('#scoreTeamOne').append(' '+teamOneTotalScore+' ');
+    $('#scoreTeamTwo').append(' '+teamTwoTotalScore+' ');
+    resetHand();
+    nextDealer();
+    if ((teamOneTotalScore > 9 && (teamOneTotalScore - teamTwoTotalScore) > 1) || (teamTwoTotalScore > 9 && (teamTwoTotalScore - teamOneTotalScore) > 1) ) {
+      gameOver();
+    } else {
+    playGame();
+    }
 }
 
 function renderHandScore() {
@@ -447,7 +489,12 @@ function renderHandScore() {
   console.log(currentMove);
   currentWinningTrick = {};
   newChallenger = {};
-  clickHandCards();
+  if ((teamOneHandScore + teamTwoHandScore) == 5) {
+    $('#currentTrump').empty();
+    renderTotalScore();
+  } else {
+    clickHandCards();
+  }
 }
 
 function setHandStarter() {
@@ -471,18 +518,30 @@ function resetHand() {
   player2.hand = [];
   player3.hand = [];
   player4.hand = [];
+  player1.goAlone = false;
+  player2.goAlone = false;
+  player3.goAlone = false;
+  player4.goAlone = false;
+  player1.dummy = false;
+  player2.dummy = false;
+  player3.dummy = false;
+  player4.dummy = false;
   teamOneHandScore = 0;
   teamTwoHandScore = 0;
-  dummy = 0;
-  goAloneTeamOne = false;
-  goAloneTeamTwo = false;
-  for (var i = 0; i < 24; i++) {
-    deckOfCards[i].cardOwner = 0;
+}
+
+function gameOver() {
+  if (teamOneTotalScore > teamTwoTotalScore) {
+    $('#messageBar').append('Team One Wins!')
+  } else if (teamTwoTotalScore > teamOneTotalScore) {
+    $('#messageBar').append('Team Two Wins!')
+  } else {
+    console.log('There was an error with gaveOver function')
   }
 }
 
 function resetGame() {
   resetHand();
-  teamOneScore = 0;
-  teamTwoScore = 0;
+  teamOneTotalScore = 0;
+  teamTwoTotalScore = 0;
 }

@@ -8,8 +8,8 @@ $playedcardheight: 78px;
 $playedcardmargin: 54px;
 $gameWidth: 90%;
 $font-size: 16px;
-$cardmargin: 2px;
-$scorewidth: 20%;
+$cardmargin: 5px;
+$scorewidth: 16%;
 $scoreheight: 36px;
 $scorefontsize: 32px;
 
@@ -80,7 +80,6 @@ body {
 }
 
 #player1GameArea {
-  border: 1px solid black;
   height: $player13height;
   float: left;
   margin-right: $player13sidemargins;
@@ -88,7 +87,6 @@ body {
 }
 
 #player1GameAreaName {
-  border: 1px solid black;
   height: $font-size;
   clear: both;
   float: left;
@@ -121,10 +119,10 @@ body {
 }
 
 #player2GameArea {
-  border: 1px solid black;
   float: right;
   clear: right;
   height: $player24height;
+  width: 54px;
 }
 
 #player2GameArea img {
@@ -133,7 +131,6 @@ body {
 }
 
 #player2GameAreaName {
-  border: 1px solid black;
   height: $font-size;
   float: right;
 }
@@ -164,7 +161,6 @@ body {
 }
 
 #player3GameArea {
-  border: 1px solid black;
   height: $player13height;
   margin-right: $player13sidemargins;
   float: left;
@@ -176,7 +172,6 @@ body {
 }
 
 #player3GameAreaName {
-  border: 1px solid black;
   height: $font-size;
   float: left;
   margin-left: $player13sidemargins;
@@ -203,10 +198,10 @@ body {
 }
 
 #player4GameArea {
-  border: 1px solid black;
   float: left;
   clear: both;
   height: $player24height;
+  width: 54px;
 }
 
 #player4GameArea img {
@@ -215,7 +210,6 @@ body {
 }
 
 #player4GameAreaName {
-  border: 1px solid black;
   height: $font-size;
   clear: both;
   float: left;
@@ -279,6 +273,11 @@ body {
   font-size: $scorefontsize;
 }
 
+#currentTrump {
+  height: $scoreheight;
+  font-size: $scorefontsize;
+}
+
 #messageBarTitle {
   width: 10%;
   font-size: 20px;
@@ -289,7 +288,6 @@ body {
 }
 
 #messageBar {
-  border: 1px solid black;
   float: left;
   width: 75%;
   font-size: 20px;
