@@ -6,7 +6,7 @@ $player24width: 54px;
 $playedcardwidth: 54px;
 $playedcardheight: 78px;
 $playedcardmargin: 54px;
-$gameWidth: 90%;
+$gameWidth: 95%;
 $font-size: 16px;
 $cardmargin: 5px;
 $scorewidth: 16%;
@@ -26,9 +26,9 @@ header {
   margin-bottom: 10px;
 }
 
-#pregame {
-  color: black;
-}
+// #pregame {
+//
+// }
 
 .card {
   height: 78px;
@@ -38,14 +38,15 @@ header {
 #game {
   border: 4px solid black;
   width: $gameWidth;
-  height: 675px; //Change so it equals the width
+  height: 750px;
   background: rgb(25,77,30);
+  margin-left: 2.5%;
 }
 
 #trickArea {
   margin-left: 35%;
-  margin-top: 10%;
   float: left;
+  margin-top: 80px;
 }
 
 #middleCard {
@@ -247,27 +248,26 @@ header {
   font-size: $scorefontsize;
 }
 
-#messageBarTitle {
-  width: 10%;
-  font-size: 20px;
-  height: $scoreheight;
+#messageBar {
+  clear: both;
   float: left;
-  padding-top: 5px;
-  padding-left: 10px;
+  font-size: 18px;
+  height: 18px;
+  margin: 2%;
+  margin-left: 20%;
 }
 
-#messageBar {
-  float: left;
-  width: 75%;
-  font-size: 20px;
-  height: $scoreheight;
-  padding-top: 5px;
+.bidButton {
+  margin-left: 16px;
+  font-weight: bold;
+
 }
 
 footer {
   text-align: right;
   clear: both;
   float: right;
-  margin-bottom: 10px;
+  margin-bottom: 25px;
+  margin-top: 25px;
   padding-right: 150px;
 }

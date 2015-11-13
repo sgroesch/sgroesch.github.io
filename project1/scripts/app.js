@@ -43,7 +43,7 @@ var currentMove = {
   goAlone: null,
   dummy: null,
   controller: null};
-var dealer = 1;
+var dealer = 4;
 var firstDealtSuit;
 var currentWinningTrick;
 var newChallenger = {trump: false};
@@ -118,6 +118,9 @@ function deal() {
 function playGame() {
   makeDeck();
   deal();
+  nextDealer();
+  reRender();
+  changer(dealer);
   setCurrentMove();
   bidding();
 }
@@ -135,7 +138,7 @@ function renderHands(whichPlayersHand, inc) {
   $('#player'+whichPlayersHand.playerOrder+'GameArea').append('<img class="card" id="player'+whichPlayersHand.playerOrder+'HandCard'+(inc + 1)+'" src='+imgUrl(whichPlayersHand.hand[inc])+'></img>');
 }
 
-// Bidding: Pick up to set trump, pass,
+// Bidding: Pick up to set trump
 function setCurrentMove() {
   switch (dealer) {
     case 1: currentMove = player2;
@@ -216,17 +219,33 @@ function setTrump() {
 }
 
 function bidding(){
-    if (bidStarter != handStarter || pass == 0) {
-      console.log('bidding worked')
-      $('#messageBar').hide().fadeOut('slow');
-      $('#messageBar').show().append('Player '+bidStarter+'\'s turn to bid: <button id="bidPassButton">Pass</button>  <button id="bidPickUpButton">Pick it Up!</button>').fadeIn('slow');
-      $('#bidPassButton').on('click', function(){bidPass()});
-      $('#bidPickUpButton').on('click', function(){bidPickUp()});
-  } else {
-    pass = 0;
-
+  reRender();
+  changer(bidStarter);
+  if (pass > 7) {
     renderTotalScore();
+  } else if (pass > 3) {
+    $('#messageBar').append('Player '+bidStarter+'\'s turn to pass or choose the trump: <button class="bidButton" id="bidPassButton">Pass</button><button class="bidButton" id="btnSpades">Spades</button><button class="bidButton" id="btnHearts">Hearts</button><button class="bidButton" id="btnDiamonds">Diamonds</button><button class="bidButton" id="btnClubs">Clubs</button>');
+    $('#middleCard').empty();
+    $('#bidPassButton').on('click', function(){bidPass()});
+    $('#btnSpades').on('click', function(){setTrumpFromButton('spades')});
+    $('#btnHearts').on('click', function(){setTrumpFromButton('hearts')});
+    $('#btnDiamonds').on('click', function(){setTrumpFromButton('diamonds')});
+    $('#btnClubs').on('click', function(){setTrumpFromButton('clubs')});
+  } else {
+    $('#messageBar').append('Player '+bidStarter+'\'s turn to pass or make the dealer pick it up: <button class="bidButton" id="bidPassButton">Pass</button>  <button class="bidButton" id="bidPickUpButton">Pick it Up!</button>');
+    $('#bidPassButton').on('click', function(){bidPass()});
+    $('#bidPickUpButton').on('click', function(){bidPickUp()});
   }
+}
+
+function setTrumpFromButton(givenTrump) {
+      trump = givenTrump;
+      $('#messageBar').empty();
+      setMaker();
+      setTrump();
+      reRender();
+      changer(handStarter);
+      clickHandCards();
 }
 
 function bidPass(){
@@ -240,8 +259,9 @@ function bidPickUp() {
   $('#messageBar').empty();
   trump = pickUp.suit;
   setMaker();
-
   setTrump();
+  reRender();
+  changer(dealer);
   trumpCardToHand();
 }
 
@@ -274,6 +294,8 @@ function whichCardToSwitch(handNumber) {
       break;
     default: console.log('whichCardToSwitch function messed up');
   }
+  reRender();
+  changer((dealer+1));
   clickHandCards();
 }
 
@@ -370,24 +392,32 @@ function nextTurn() {
               currentMove = player3;
             } else {
               currentMove = player2;
+              reRender()
+              changer(2)
             };
         break;
     case 2: if (player3.dummy == true) {
               currentMove = player4;
             } else {
               currentMove = player3;
+              reRender()
+              changer(3)
             };
         break;
     case 3: if (player4.dummy == true) {
               currentMove = player1;
             } else {
               currentMove = player4;
+              reRender()
+              changer(4)
             };
         break;
     case 4: if (player1.dummy == true) {
               currentMove = player2;
             } else {
               currentMove = player1;
+              reRender()
+              changer(1)
             };
         break;
     default: console.log('The nextTurn function messed up')
@@ -401,6 +431,58 @@ function nextTurn() {
     renderHandScore();
   }
 }
+
+function change(imgToFlip) {
+      $(imgToFlip).attr('src','styles/cards/back.png')
+}
+
+function changer(openHand) {
+  switch (openHand) {
+    case 1: for (var i = 1; i < 6; i++) {
+      if (player2.hand[i-1].played ==false){
+        change('#player2HandCard'+i)}
+      if (player3.hand[i-1].played ==false){
+        change('#player3HandCard'+i)}
+      if (player4.hand[i-1].played ==false){
+        change('#player4HandCard'+i)}
+    } break;
+    case 2: for (var i = 1; i < 6; i++) {
+      if (player1.hand[i-1].played ==false){
+        change('#player1HandCard'+i)}
+      if (player3.hand[i-1].played ==false){
+        change('#player3HandCard'+i)}
+      if (player4.hand[i-1].played ==false){
+        change('#player4HandCard'+i)}
+    } break;
+    case 3: for (var i = 1; i < 6; i++) {
+      if (player1.hand[i-1].played ==false){
+        change('#player1HandCard'+i)}
+      if (player2.hand[i-1].played ==false){
+        change('#player2HandCard'+i)}
+      if (player4.hand[i-1].played ==false){
+        change('#player4HandCard'+i)}
+    } break;
+    case 4: for (var i = 1; i <6; i++) {
+      if (player2.hand[i-1].played ==false){
+        change('#player2HandCard'+i)}
+      if (player3.hand[i-1].played ==false){
+        change('#player3HandCard'+i)}
+      if (player1.hand[i-1].played ==false){
+        change('#player1HandCard'+i)}
+    } break;
+    default: console.log('Changer function messed up')
+  }
+}
+
+function reRender() {
+    for (var i = 0; i < 5; i++) {
+        $('#player1HandCard'+(i+1)).attr('src','styles/cards/'+player1.hand[i].rank+'_of_'+player1.hand[i].suit+'.png')
+        $('#player2HandCard'+(i+1)).attr('src','styles/cards/'+player2.hand[i].rank+'_of_'+player2.hand[i].suit+'.png')
+        $('#player3HandCard'+(i+1)).attr('src','styles/cards/'+player3.hand[i].rank+'_of_'+player3.hand[i].suit+'.png')
+        $('#player4HandCard'+(i+1)).attr('src','styles/cards/'+player4.hand[i].rank+'_of_'+player4.hand[i].suit+'.png')
+    }
+}
+
 
 function trickScore() {
   if (currentWinningTrick.cardOwner == 1 || currentWinningTrick.cardOwner == 3) {
@@ -463,7 +545,6 @@ function renderTotalScore() {
     $('#scoreTeamTwo').empty();
     $('#scoreTeamOne').append(' '+teamOneTotalScore+' ');
     $('#scoreTeamTwo').append(' '+teamTwoTotalScore+' ');
-    nextDealer();
     resetHand();
     if ((teamOneTotalScore > 9 && (teamOneTotalScore - teamTwoTotalScore) > 1) || (teamTwoTotalScore > 9 && (teamTwoTotalScore - teamOneTotalScore) > 1) ) {
       gameOver();
@@ -482,6 +563,8 @@ function renderHandScore() {
   }
   setHandStarter();
   counter = 0;
+  reRender();
+  changer(handStarter);
   console.log(handStarter);
   console.log(currentMove);
   currentWinningTrick = {};
