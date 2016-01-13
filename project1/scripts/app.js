@@ -1,6 +1,6 @@
 window.onload = function() {
-playGame();
-
+  playGame();
+ $('#nextTurnDiv').hide();
 }
 
 // Setting variables to initial values
@@ -52,6 +52,7 @@ var counter = 0;
 var bidStarter;
 var pass = 0;
 
+
 // Main game function
 function playGame() {
   makeDeck();
@@ -62,7 +63,37 @@ function playGame() {
   setCurrentMove();
   bidding();
 }
+// Bid next turn
+function clickBidNextTurn() {
+  $('#nextTurnDiv').show()
+  $('#nextTurnDiv').on('click', function() {
+    bidding();
+    clearDiv();
+  })
+};
 
+function clickTrumpNextTurn(changerFunctionInput) {
+  $('#nextTurnDiv').show()
+  $('#nextTurnDiv').on('click', function() {
+    reRender();
+    changer(changerFunctionInput);
+    clickHandCards();
+    clearDiv();
+  })
+}
+
+function clickNextTurn() {
+  $('#nextTurnDiv').show()
+  $('#nextTurnDiv').on('click', function() {
+    nextTurn();
+    clearDiv();
+  })
+}
+
+function clearDiv() {
+  $('#nextTurnDiv').unbind();
+  $('#nextTurnDiv').hide();
+}
 // Makes the deck
 function makeDeck() {
   for (var i = 0; i < 24; i++) {
@@ -212,7 +243,7 @@ function bidPass(){
     bidStarter = (bidStarter%4 + 1);
     pass = pass + 1;
     $('#messageBar').empty();
-    bidding();
+    clickBidNextTurn();
 }
 
 // Function to run if player picks up. Runs the trumpCardToHand function at end
@@ -221,9 +252,7 @@ function bidPickUp() {
   trump = pickUp.suit;
   setMaker();
   setTrump();
-  reRender();
-  changer(dealer);
-  trumpCardToHand();
+  clickTrumpNextTurn(dealer);
 }
 
 // Function to set trump to a user input after 4 passes
@@ -232,9 +261,7 @@ function setTrumpFromButton(givenTrump) {
       $('#messageBar').empty();
       setMaker();
       setTrump();
-      reRender();
-      changer(handStarter);
-      clickHandCards();
+      clickTrumpNextTurn(handStarter);
 }
 
 //Two functions for switching middle card to hand and starting the first trick
@@ -248,7 +275,7 @@ function trumpCardToHand() {
 }
 
 function whichCardToSwitch(handNumber) {
-  $('#player'+dealer+'HandCard'+handNumber).attr('src', imgUrl(deckOfCards[23]));
+  $('#player'+dealer+'HandCard'+handNumber).prop('src', imgUrl(deckOfCards[23]));
   $('#middleCard').empty();
   $('#messageBar').empty();
   $('.card').unbind('click');
@@ -267,9 +294,7 @@ function whichCardToSwitch(handNumber) {
       break;
     default: console.log('whichCardToSwitch function messed up');
   }
-  reRender();
-  changer((dealer+1));
-  clickHandCards();
+  clickTrumpNextTurn(dealer+1);
 }
 
 // Sets the maker when trump is declared
@@ -348,7 +373,7 @@ function dry(cardNum){
         newChallenger = currentMove.hand[(cardNum - 1)];
       }
       checkHandWinner();
-      nextTurn();
+      clickNextTurn();
   } else {
       console.log('False');
   }
@@ -476,7 +501,7 @@ function setHandStarter() {
 
 // Next two functions set every non played card that isn't in the current player's hand to the background image of the back of the card
 function change(imgToFlip) {
-      $(imgToFlip).attr('src','styles/cards/back.png')
+      $(imgToFlip).prop('src','styles/cards/back.png')
 }
 
 function changer(openHand) {
@@ -520,10 +545,10 @@ function changer(openHand) {
 // Rerenders every card on the board again. Used in conjunction with the changer function
 function reRender() {
     for (var i = 0; i < 5; i++) {
-        $('#player1HandCard'+(i+1)).attr('src','styles/cards/'+player1.hand[i].rank+'_of_'+player1.hand[i].suit+'.png')
-        $('#player2HandCard'+(i+1)).attr('src','styles/cards/'+player2.hand[i].rank+'_of_'+player2.hand[i].suit+'.png')
-        $('#player3HandCard'+(i+1)).attr('src','styles/cards/'+player3.hand[i].rank+'_of_'+player3.hand[i].suit+'.png')
-        $('#player4HandCard'+(i+1)).attr('src','styles/cards/'+player4.hand[i].rank+'_of_'+player4.hand[i].suit+'.png')
+        $('#player1HandCard'+(i+1)).prop('src','styles/cards/'+player1.hand[i].rank+'_of_'+player1.hand[i].suit+'.png')
+        $('#player2HandCard'+(i+1)).prop('src','styles/cards/'+player2.hand[i].rank+'_of_'+player2.hand[i].suit+'.png')
+        $('#player3HandCard'+(i+1)).prop('src','styles/cards/'+player3.hand[i].rank+'_of_'+player3.hand[i].suit+'.png')
+        $('#player4HandCard'+(i+1)).prop('src','styles/cards/'+player4.hand[i].rank+'_of_'+player4.hand[i].suit+'.png')
     }
 }
 
@@ -551,8 +576,6 @@ function renderHandScore() {
   counter = 0;
   reRender();
   changer(handStarter);
-  console.log(handStarter);
-  console.log(currentMove);
   currentWinningTrick = {};
   newChallenger = {};
   if ((teamOneHandScore + teamTwoHandScore) == 5) {
