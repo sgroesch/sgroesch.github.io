@@ -1,22 +1,44 @@
 $sectionpadding: 20px;
 $height: 100vh;
-$bodycolor: rgb(32,106,133);
+$bodycolor: #566D59;
+$linkcolor: #192521;
+$opensans: 'Open Sans', sans-serif;
+$cabin: 'Cabin Sketch', cursive;
+$card: #96B49A;
+$navfootcolor: #243930;
 
 body {
   background-color: $bodycolor;
   color: white;
+  font-family: $opensans;
 }
 
-.buttons {
-  background-color: $bodycolor;
+.brand-logo, .card-title, h1, h2, h5 {
+  font-family: $cabin;
+}
+
+a {
+  color: $linkcolor;
+}
+
+.anchor {
+  padding-top: 80px;
 }
 
 .card {
-  background-color: rgb(85,193,73);
+  background-color: $card;
+}
+
+#dropdown1, #dropdown2 {
+  li {
+    a {
+        color: $linkcolor;
+    }
+  }
 }
 
 #projectLink1, #projectLink2, #projectLink3, #projectLink4 {
-  color: $bodycolor;
+  color: $linkcolor;
   font-weight: bold;
 }
 
@@ -25,26 +47,23 @@ body {
   padding-right: $sectionpadding;
   height: $height;
   width: 100%;
-  background-color: rgb(85,193,73);
+  background-color: $card;
+  font-family: $opensans;
 }
 
 #contact {
-  background-color: rgb(34,44,79);
+  background-color: $navfootcolor;
+  font-family: $opensans;
 }
 
 #navbarColor {
-  background-color: rgb(34,44,79);
-}
-
-.divideanchor {
-  margin-bottom: 80px;
+  background-color: $navfootcolor;
 }
 
 #downloadButtons {
   padding-left: 10px;
   padding-top: 10px;
-}
-
-.navbarfooterColor {
-  background-color: rgb(34,64,100);
+  a {
+    background-color: #6A816D;
+  }
 }

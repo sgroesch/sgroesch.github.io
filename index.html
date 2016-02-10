@@ -4,6 +4,7 @@
 		<meta charset="utf-8">
 		<title>Sam Groesch</title>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css" media="screen" title="no title" charset="utf-8">
+		<link href='https://fonts.googleapis.com/css?family=Limelight|Cabin+Sketch|Chelsea+Market|Abril+Fatface|Open+Sans' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="styles/style.css" media="screen" title="no title" charset="utf-8">
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
@@ -17,12 +18,12 @@
 						<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
 						<ul class="right hide-on-med-and-down">
 							<li><a href="#aboutme">About Me</a></li>
-							<li><a class='dropdown-button' data-hover='true' data-beloworigin='true' data-constrainwidth='false' data-activates='dropdown1' href="#portfolioanchor">Portfolio</a>
+							<li><a class='dropdown-button' data-hover='true' data-beloworigin='true' data-constrainwidth='false' data-activates='dropdown1' href="#portfolio">Portfolio</a>
 								<ul id='dropdown1' class='dropdown-content'>
-									<li><a href="#tradecheckeranchor">NBA Trade Checker</a></li>
-									<li><a href="#chicagocrimeanchor">Chicago Crime Data</a></li>
-									<li><a href="#travelappanchor">Spectacular Travel App</a></li>
-									<li><a href="#euchreanchor">Euchre</a></li>
+									<li><a href="#tradechecker">NBA Trade Checker</a></li>
+									<li><a href="#chicagocrime">Chicago Crime Data</a></li>
+									<li><a href="#travelapp">Spectacular Travel App</a></li>
+									<li><a href="#euchre">Euchre</a></li>
 								</ul>
 							</li>
 							<li><a href="#contact">Resume & Contact</a></li>
@@ -30,12 +31,12 @@
 						<ul class="side-nav" id="mobile-demo">
 							<li><a href="#">Sam Groesch</a></li>
 							<li><a href="#aboutme">About Me</a></li>
-							<li><a class='dropdown-button' data-hover='true' data-beloworigin='true' data-constrainwidth='false' data-activates='dropdown2' href="#portfolioanchor">Portfolio</a>
+							<li><a class='dropdown-button' data-hover='true' data-beloworigin='true' data-constrainwidth='false' data-activates='dropdown2' href="#portfolio">Portfolio</a>
 								<ul id='dropdown2' class='dropdown-content'>
-									<li><a href="#tradecheckeranchor">NBA Trade Checker</a></li>
-									<li><a href="#chicagocrimeanchor">Chicago Crime Data</a></li>
-									<li><a href="#travelappanchor">Spectacular Travel App</a></li>
-									<li><a href="#euchreanchor">Euchre</a></li>
+									<li><a href="#tradechecker">NBA Trade Checker</a></li>
+									<li><a href="#chicagocrime">Chicago Crime Data</a></li>
+									<li><a href="#travelapp">Spectacular Travel App</a></li>
+									<li><a href="#euchre">Euchre</a></li>
 								</ul>
 							</li>
 							<li><a href="#contact">Resume & Contact</a></li>
@@ -57,13 +58,11 @@
 			</div>
 		</div>
 
-		<div class="divideanchor" id="portfolioanchor"></div>
 
-		<div class="section container" id="portfolio">
+		<div class="section container anchor" id="portfolio">
 			<h2 class="center-align">Portfolio</h2>
-			<div class="divideanchor" id="tradecheckeranchor"></div>
 
-			<div class="row" id="tradechecker">
+			<div class="row anchor" id="tradechecker">
 				<div class="col">
 					<div class="card hoverable">
 	          <!-- <div class="card-image">
@@ -81,9 +80,7 @@
 				</div>
 			</div>
 
-			<div class="divideanchor" id="chicagocrimeanchor"></div>
-
-			<div class="row" id="chicagocrime">
+			<div class="row anchor" id="chicagocrime">
 				<div class="col">
 					<div class="card hoverable">
 						<!-- <div class="card-image">
@@ -101,9 +98,7 @@
 				</div>
 			</div>
 
-			<div class="divideanchor" id="travelappanchor"></div>
-
-			<div class="row" id="travelapp">
+			<div class="row anchor" id="travelapp">
 				<div class="col">
 					<div class="card hoverable">
 						<!-- <div class="card-image">
@@ -121,9 +116,7 @@
 				</div>
 			</div>
 
-			<div class="divideanchor" id="euchreanchor"></div>
-
-			<div class="row" id="euchre">
+			<div class="row anchor" id="euchre">
 				<div class="col">
 					<div class="card hoverable">
 						<!-- <div class="card-image">
@@ -149,8 +142,8 @@
           <div class="col l4 s12">
             <h5 class="white-text">Download my Resume:</h5>
 						<p id="downloadButtons">
-								<a class="grey-text text-lighten-4 waves-effect waves-light btn buttons" href="#">PDF</a>
-								<a class="grey-text text-lighten-4 waves-effect waves-light btn buttons" href="#">Word</a>
+								<a class="grey-text text-lighten-4 waves-effect waves-light btn" href="#">PDF</a>
+								<a class="grey-text text-lighten-4 waves-effect waves-light btn" href="#">Word</a>
 						</p>
           </div>
           <div class="col l6 offset-l2 s12">

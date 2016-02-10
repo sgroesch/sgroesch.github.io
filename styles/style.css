@@ -1,15 +1,25 @@
 body {
-  background-color: #206a85;
-  color: white; }
+  background-color: #566D59;
+  color: white;
+  font-family: "Open Sans", sans-serif; }
 
-.buttons {
-  background-color: #206a85; }
+.brand-logo, .card-title, h1, h2, h5 {
+  font-family: "Cabin Sketch", cursive; }
+
+a {
+  color: #192521; }
+
+.anchor {
+  padding-top: 80px; }
 
 .card {
-  background-color: #55c149; }
+  background-color: #96B49A; }
+
+#dropdown1 li a, #dropdown2 li a {
+  color: #192521; }
 
 #projectLink1, #projectLink2, #projectLink3, #projectLink4 {
-  color: #206a85;
+  color: #192521;
   font-weight: bold; }
 
 #aboutme {
@@ -17,22 +27,20 @@ body {
   padding-right: 20px;
   height: 100vh;
   width: 100%;
-  background-color: #55c149; }
+  background-color: #96B49A;
+  font-family: "Open Sans", sans-serif; }
 
 #contact {
-  background-color: #222c4f; }
+  background-color: #243930;
+  font-family: "Open Sans", sans-serif; }
 
 #navbarColor {
-  background-color: #222c4f; }
-
-.divideanchor {
-  margin-bottom: 80px; }
+  background-color: #243930; }
 
 #downloadButtons {
   padding-left: 10px;
   padding-top: 10px; }
-
-.navbarfooterColor {
-  background-color: #224064; }
+  #downloadButtons a {
+    background-color: #6A816D; }
 
 /*# sourceMappingURL=style.css.map */
