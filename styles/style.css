@@ -10,7 +10,12 @@ a {
   color: #192521; }
 
 .anchor {
-  padding-top: 80px; }
+  padding-top: 75px;
+  margin-top: -60px; }
+
+#portfolio {
+  padding-top: 75px;
+  margin-top: -60px; }
 
 .card {
   background-color: #96B49A; }
