@@ -1,0 +1,38 @@
+body {
+  background-color: #206a85;
+  color: white; }
+
+.buttons {
+  background-color: #206a85; }
+
+.card {
+  background-color: #55c149; }
+
+#projectLink1, #projectLink2, #projectLink3, #projectLink4 {
+  color: #206a85;
+  font-weight: bold; }
+
+#aboutme {
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 100vh;
+  width: 100%;
+  background-color: #55c149; }
+
+#contact {
+  background-color: #222c4f; }
+
+#navbarColor {
+  background-color: #222c4f; }
+
+.divideanchor {
+  margin-bottom: 80px; }
+
+#downloadButtons {
+  padding-left: 10px;
+  padding-top: 10px; }
+
+.navbarfooterColor {
+  background-color: #224064; }
+
+/*# sourceMappingURL=style.css.map */

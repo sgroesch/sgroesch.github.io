@@ -3,16 +3,172 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Sam Groesch</title>
-		<link rel="stylesheet" href="styles/materialize.min.css" media="screen" title="no title" charset="utf-8">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css" media="screen" title="no title" charset="utf-8">
 		<link rel="stylesheet" href="styles/style.css" media="screen" title="no title" charset="utf-8">
-		<script type="text/javascript" src="scripts/jquery-2.2.0.min.js"></script>
-		<script type="text/javascript" src="scripts/materialize.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 		<script type="text/javascript" src="scripts/app.js"></script>
 	</head>
 	<body>
-		<nav>
-			
-		</nav>
-		<h1><a href="project1/index.html">Project 1</a></h1>
+		<div class="navbar-fixed">
+			<nav id='navbarColor'>
+				<div class="nav-wrapper container">
+						<a href="#!" class="brand-logo">Sam Groesch</a>
+						<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+						<ul class="right hide-on-med-and-down">
+							<li><a href="#aboutme">About Me</a></li>
+							<li><a class='dropdown-button' data-hover='true' data-beloworigin='true' data-constrainwidth='false' data-activates='dropdown1' href="#portfolioanchor">Portfolio</a>
+								<ul id='dropdown1' class='dropdown-content'>
+									<li><a href="#tradecheckeranchor">NBA Trade Checker</a></li>
+									<li><a href="#chicagocrimeanchor">Chicago Crime Data</a></li>
+									<li><a href="#travelappanchor">Spectacular Travel App</a></li>
+									<li><a href="#euchreanchor">Euchre</a></li>
+								</ul>
+							</li>
+							<li><a href="#contact">Resume & Contact</a></li>
+						</ul>
+						<ul class="side-nav" id="mobile-demo">
+							<li><a href="#">Sam Groesch</a></li>
+							<li><a href="#aboutme">About Me</a></li>
+							<li><a class='dropdown-button' data-hover='true' data-beloworigin='true' data-constrainwidth='false' data-activates='dropdown2' href="#portfolioanchor">Portfolio</a>
+								<ul id='dropdown2' class='dropdown-content'>
+									<li><a href="#tradecheckeranchor">NBA Trade Checker</a></li>
+									<li><a href="#chicagocrimeanchor">Chicago Crime Data</a></li>
+									<li><a href="#travelappanchor">Spectacular Travel App</a></li>
+									<li><a href="#euchreanchor">Euchre</a></li>
+								</ul>
+							</li>
+							<li><a href="#contact">Resume & Contact</a></li>
+						</ul>
+				</div>
+			</nav>
+		</div>
+
+		<div class="valign-wrapper" id="aboutme">
+			<div class="container">
+				<div class="row valign">
+					<div class="col s12 center-align">
+						<h1 class="white-text">Full-Stack Web Developer</h1>
+					</div>
+					<div class="col s8 offset-s2 center-align">
+						<h4 class="grey-text text-lighten-4">I am a web developer with a unique background of economics and data analysis and a passion for solving problems. I am confident that my curiosity, critical thinking and research ability makes me ready for any challenge.</h4>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="divideanchor" id="portfolioanchor"></div>
+
+		<div class="section container" id="portfolio">
+			<h2 class="center-align">Portfolio</h2>
+			<div class="divideanchor" id="tradecheckeranchor"></div>
+
+			<div class="row" id="tradechecker">
+				<div class="col">
+					<div class="card hoverable">
+	          <!-- <div class="card-image">
+	            <img src="images/sample-1.jpg">
+	            <span class="card-title">NBA Trade Checker</span>
+	          </div> -->
+	          <div class="card-content">
+							<span class="card-title">NBA Trade Checker</span>
+	            <p>For my latest project I created an app where a user can input a trade between multiple teams in the NBA and see if it would succeed or fail under the current rules of the CBA. After this they can output the trade to a public list so other could comment on the viability of this trade. The hardest part of the project was getting detailed information about every player and team in the league. For each player I collected their full contract and free agency status and for each team I collected their picks for the next six years, instances of dead money on their cap and trade exceptions. This app was built using Node & Express and using MongoDB for the database. </p>
+	          </div>
+	          <div class="card-action">
+	            <a href="#" id="projectLink1">See this Project</a>
+          	</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="divideanchor" id="chicagocrimeanchor"></div>
+
+			<div class="row" id="chicagocrime">
+				<div class="col">
+					<div class="card hoverable">
+						<!-- <div class="card-image">
+							<img src="images/sample-1.jpg">
+							<span class="card-title">Chicago Crime Data</span>
+						</div> -->
+						<div class="card-content">
+							<span class="card-title">Chicago Crime Data</span>
+							<p>This was a group project where we built an app that pulls crime data from the City of Chicago's Data Portal. It then displays that data in the form of a map that shows a marker for each crime and a graph that displays the crimes by type of offense. This app also has functionality for users. We built this app using Node & Express, with Handlebars as our view engine.</p>
+						</div>
+						<div class="card-action">
+							<a href="#" id="projectLink2">See this Project</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="divideanchor" id="travelappanchor"></div>
+
+			<div class="row" id="travelapp">
+				<div class="col">
+					<div class="card hoverable">
+						<!-- <div class="card-image">
+							<img src="images/sample-1.jpg">
+							<span class="card-title">Spectacular Travel App</span>
+						</div> -->
+						<div class="card-content">
+							<span class="card-title">Spectacular Travel App</span>
+							<p>This is a simple travel app built with Sinatra. It has user functionality and saves the countries in the world that the user wants to visit and has visited. It does this through an interactive map that displays information gotten from the World Bank as well as a form to save the user's choices when a country is clicked. The future goal of this app would be to display more information form the World Bank data that would quantify different levels of privilege and standards of living for the clicked country.</p>
+						</div>
+						<div class="card-action">
+							<a href="https://45.55.156.91/" id="projectLink3">See this Project</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="divideanchor" id="euchreanchor"></div>
+
+			<div class="row" id="euchre">
+				<div class="col">
+					<div class="card hoverable">
+						<!-- <div class="card-image">
+							<img src="images/sample-1.jpg">
+							<span class="card-title">Euchre</span>
+						</div> -->
+						<div class="card-content">
+							<span class="card-title">Euchre</span>
+							<p>I recreated the four person card game Euchre on a single page site. I used Sass for front end CSS as well as JavaScript and jQuery to do the game logic and manipulate the DOM accordingly.</p>
+						</div>
+						<div class="card-action">
+							<a href="euchre/index.html" id="projectLink4">See this Project</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<footer class="page-footer" id='contact'>
+      <div class="container">
+        <div class="row">
+          <div class="col l4 s12">
+            <h5 class="white-text">Download my Resume:</h5>
+						<p id="downloadButtons">
+								<a class="grey-text text-lighten-4 waves-effect waves-light btn buttons" href="#">PDF</a>
+								<a class="grey-text text-lighten-4 waves-effect waves-light btn buttons" href="#">Word</a>
+						</p>
+          </div>
+          <div class="col l6 offset-l2 s12">
+            <h5 class="white-text">Contact Me:</h5>
+            <ul>
+              <li class="grey-text text-lighten-3">Phone: (630)240-0493</li>
+              <li class="grey-text text-lighten-3">Email: sgroesch@gmail.com</li>
+              <li class="grey-text text-lighten-3">LinkedIn: <a class="grey-text text-lighten-3" href="https://www.linkedin.com/in/sgroesch">sgroesch</a></li>
+              <li class="grey-text text-lighten-3">Github: <a class="grey-text text-lighten-3" href="https://github.com/sgroesch">sgroesch</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+          © 2016 Sam Groesch
+        </div>
+      </div>
+    </footer>
 	</body>
 </html>

@@ -82,6 +82,14 @@ function clickTrumpNextTurn(changerFunctionInput) {
   })
 }
 
+function clickTrumpChoose() {
+  $('#nextTurnDiv').show()
+  $('#nextTurnDiv').on('click', function() {
+    trumpCardToHand();
+    clearDiv();
+  })
+}
+
 function clickNextTurn() {
   $('#nextTurnDiv').show()
   $('#nextTurnDiv').on('click', function() {
@@ -240,10 +248,11 @@ function bidding(){
 
 // Function to run if player passes
 function bidPass(){
-    bidStarter = (bidStarter%4 + 1);
-    pass = pass + 1;
-    $('#messageBar').empty();
-    clickBidNextTurn();
+  bidStarter = (bidStarter%4 + 1);
+  pass = pass + 1;
+  $('#messageBar').empty();
+  console.log('bidPass')
+  clickBidNextTurn();
 }
 
 // Function to run if player picks up. Runs the trumpCardToHand function at end
@@ -252,16 +261,18 @@ function bidPickUp() {
   trump = pickUp.suit;
   setMaker();
   setTrump();
-  clickTrumpNextTurn(dealer);
+  console.log('bidPickUp')
+  clickTrumpChoose();
 }
 
 // Function to set trump to a user input after 4 passes
 function setTrumpFromButton(givenTrump) {
-      trump = givenTrump;
-      $('#messageBar').empty();
-      setMaker();
-      setTrump();
-      clickTrumpNextTurn(handStarter);
+  trump = givenTrump;
+  $('#messageBar').empty();
+  setMaker();
+  setTrump();
+  console.log('bidSetTrump')
+  clickTrumpNextTurn(handStarter);
 }
 
 //Two functions for switching middle card to hand and starting the first trick

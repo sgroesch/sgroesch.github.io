@@ -1,0 +1,50 @@
+$sectionpadding: 20px;
+$height: 100vh;
+$bodycolor: rgb(32,106,133);
+
+body {
+  background-color: $bodycolor;
+  color: white;
+}
+
+.buttons {
+  background-color: $bodycolor;
+}
+
+.card {
+  background-color: rgb(85,193,73);
+}
+
+#projectLink1, #projectLink2, #projectLink3, #projectLink4 {
+  color: $bodycolor;
+  font-weight: bold;
+}
+
+#aboutme {
+  padding-left: $sectionpadding;
+  padding-right: $sectionpadding;
+  height: $height;
+  width: 100%;
+  background-color: rgb(85,193,73);
+}
+
+#contact {
+  background-color: rgb(34,44,79);
+}
+
+#navbarColor {
+  background-color: rgb(34,44,79);
+}
+
+.divideanchor {
+  margin-bottom: 80px;
+}
+
+#downloadButtons {
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+.navbarfooterColor {
+  background-color: rgb(34,64,100);
+}
