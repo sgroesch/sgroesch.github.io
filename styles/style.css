@@ -28,8 +28,6 @@ a {
   font-weight: bold; }
 
 #aboutme {
-  padding-left: 20px;
-  padding-right: 20px;
   height: 100vh;
   width: 100%;
   background-color: #96B49A;
@@ -48,7 +46,7 @@ a {
   #downloadButtons a {
     background-color: #6A816D; }
 
-@media (max-width: 600px) {
+@media (max-width: 500px) {
   #aboutme h1 {
     font-size: 2.1rem; }
   #aboutme h4 {
