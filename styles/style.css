@@ -48,4 +48,10 @@ a {
   #downloadButtons a {
     background-color: #6A816D; }
 
+@media (max-width: 600px) {
+  #aboutme h1 {
+    font-size: 2.1rem; }
+  #aboutme h4 {
+    font-size: 1.14rem; } }
+
 /*# sourceMappingURL=style.css.map */
