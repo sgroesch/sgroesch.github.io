@@ -23,7 +23,7 @@ a {
 #dropdown1 li a, #dropdown2 li a {
   color: #192521; }
 
-#projectLink1, #projectLink2, #projectLink3, #projectLink4 {
+.projectLink {
   color: #192521;
   font-weight: bold; }
 
